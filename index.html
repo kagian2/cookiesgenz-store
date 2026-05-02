@@ -172,6 +172,7 @@
     .good-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(255,107,26,.15);}
     .good-ribbon{display:block;text-align:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.18em;padding:.36rem;flex-shrink:0;}
     .gr-sale{background:linear-gradient(90deg,var(--fire-red),var(--ember-orange));color:#fff;}
+    .gr-gift{background:linear-gradient(90deg,#1a8a26,#2ecc40);color:#fff;}
     .gr-rare{background:linear-gradient(90deg,#6a00cc,#c77dff);color:#fff;}
     .good-inner{padding:1.4rem 1.5rem 1.5rem;display:flex;flex-direction:column;flex:1;text-align:center;}
     .good-icon{font-size:2.8rem;margin-bottom:.7rem;display:block;}
@@ -273,6 +274,104 @@
     .anim-hidden{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease,box-shadow .3s,border-color .3s!important;}
     .anim-hidden.visible{opacity:1;transform:translateY(0);}
 
+
+    /* GIFT BANNER */
+    .gift-banner{position:fixed;top:68px;left:0;right:0;z-index:99;background:linear-gradient(90deg,rgba(46,204,64,.14),rgba(255,170,0,.11),rgba(46,204,64,.14));border-bottom:1px solid rgba(46,204,64,.28);padding:.52rem 3.5rem .52rem 1.5rem;text-align:center;font-family:'Rajdhani',sans-serif;font-size:.84rem;color:var(--cream);letter-spacing:.03em;}
+    .gift-banner strong{color:#5bf577;}
+    .gift-banner a{color:#5bf577;text-decoration:underline;}
+    .gift-close{position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:0;line-height:1;}
+    .gift-close:hover{color:var(--cream);}
+    /* TOAST */
+    .toast{position:fixed;bottom:1.5rem;left:1.5rem;z-index:9999;background:var(--dark-card2);border:1px solid var(--dark-border);border-radius:12px;padding:.85rem 1.1rem;display:flex;align-items:center;gap:.75rem;box-shadow:0 8px 32px rgba(0,0,0,.55);transform:translateX(-130%);transition:transform .4s cubic-bezier(.175,.885,.32,1.275);max-width:290px;pointer-events:none;}
+    .toast.show{transform:translateX(0);}
+    .toast-icon{font-size:1.6rem;flex-shrink:0;line-height:1;}
+    .toast-text{font-family:'Rajdhani',sans-serif;font-size:.8rem;color:var(--text-body);line-height:1.4;}
+    .toast-name{display:block;font-size:.86rem;color:var(--cream);font-weight:700;}
+    .toast-tag{font-size:.66rem;color:var(--ember-orange);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:.12rem;}
+    /* POPULARITY BAR */
+    .pop-bar-wrap{padding:.55rem 1.5rem .8rem;border-top:1px solid var(--dark-border);}
+    .pop-bar-label{font-family:'Rajdhani',sans-serif;font-size:.66rem;color:var(--muted);margin-bottom:.28rem;}
+    .pop-bar-track{height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;}
+    .pop-bar-fill{height:100%;border-radius:3px;}
+    .pop-pct{font-family:'Rajdhani',sans-serif;font-size:.68rem;font-weight:700;margin-top:.22rem;}
+    .vip .pop-bar-fill{background:#5bf577;} .vip .pop-pct{color:#5bf577;}
+    .elite .pop-bar-fill{background:#00cfff;} .elite .pop-pct{color:#00cfff;}
+    .legend .pop-bar-fill{background:#c77dff;} .legend .pop-pct{color:#c77dff;}
+    .custom-rank .pop-bar-fill{background:linear-gradient(90deg,var(--gold),var(--ember-orange));} .custom-rank .pop-pct{color:var(--gold);}
+    /* COUNTDOWN */
+    .countdown-bar{background:rgba(230,48,0,.08);border:1px solid rgba(230,48,0,.2);border-radius:10px;padding:.9rem 1.5rem;margin-bottom:2rem;display:flex;align-items:center;justify-content:center;gap:.8rem;flex-wrap:wrap;}
+    .cd-label{font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
+    .cd-timer{display:flex;align-items:center;gap:.4rem;}
+    .cd-unit{text-align:center;}
+    .cd-num{font-family:'Cinzel Decorative',cursive;font-size:1.4rem;font-weight:700;color:var(--fire-red);line-height:1;display:block;}
+    .cd-sub{font-family:'Rajdhani',sans-serif;font-size:.62rem;letter-spacing:.12em;color:var(--muted);}
+    .cd-sep{font-family:'Cinzel Decorative',cursive;font-size:1.2rem;color:var(--fire-red);line-height:1;padding-bottom:.2rem;}
+    /* COMPARISON TABLE */
+    .compare-wrap{margin-top:3rem;overflow-x:auto;}
+    .compare-title{font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:1rem;}
+    .compare-table{width:100%;border-collapse:collapse;font-family:'Rajdhani',sans-serif;}
+    .compare-table th{padding:.6rem .8rem;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--dark-border);white-space:nowrap;}
+    .compare-table th:first-child{text-align:left;color:var(--muted);}
+    .compare-table th.th-vip{color:#5bf577;} .compare-table th.th-elite{color:#00cfff;}
+    .compare-table th.th-legend{color:#c77dff;} .compare-table th.th-custom{color:var(--gold);}
+    .compare-table td{padding:.5rem .8rem;font-size:.82rem;text-align:center;border-bottom:1px solid rgba(58,37,8,.5);color:var(--text-body);}
+    .compare-table td:first-child{text-align:left;color:var(--muted);font-size:.78rem;}
+    .compare-table tr:last-child td{border-bottom:none;}
+    .compare-table tr:hover td{background:rgba(255,255,255,.02);}
+    .c-yes{color:#5bf577;font-size:1rem;} .c-no{color:#3a2508;font-size:.9rem;}
+    /* UPSELL */
+    .upsell-box{background:rgba(255,170,0,.06);border:1px solid rgba(255,170,0,.2);border-radius:8px;padding:.65rem .85rem;margin-bottom:.9rem;display:none;}
+    .upsell-box p{font-family:'Rajdhani',sans-serif;font-size:.79rem;color:var(--text-body);line-height:1.5;}
+    .upsell-box strong{color:var(--gold);}
+    .upsell-link{display:inline-block;margin-top:.3rem;font-family:'Rajdhani',sans-serif;font-size:.75rem;font-weight:700;color:var(--gold);letter-spacing:.06em;cursor:pointer;text-decoration:underline;}
+    /* QTY SELECTOR */
+    .qty-label{font-family:'Rajdhani',sans-serif;font-size:.7rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;text-align:center;margin-bottom:.4rem;}
+    .qty-selector{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:.35rem;}
+    .qty-btn{background:rgba(255,255,255,.06);border:1px solid var(--dark-border);color:var(--cream);width:28px;height:28px;border-radius:6px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;font-weight:700;flex-shrink:0;line-height:1;}
+    .qty-btn:hover{background:rgba(255,255,255,.12);}
+    .qty-num{font-family:'Cinzel Decorative',cursive;font-size:1.1rem;color:var(--cream);min-width:1.5rem;text-align:center;}
+    .qty-deal-tag{font-family:'Rajdhani',sans-serif;font-size:.7rem;font-weight:700;color:var(--ember-orange);text-align:center;min-height:1em;margin-bottom:.7rem;}
+    /* REFERRAL FIELD */
+    #referralInput{letter-spacing:.08em;font-family:'Rajdhani',sans-serif;font-weight:600;}
+    /* RANKS COUNTDOWN */
+    .ranks-cd-bar{display:flex;align-items:center;justify-content:center;gap:.7rem;background:rgba(230,48,0,.07);border:1px solid rgba(255,107,26,.22);border-radius:8px;padding:.6rem 1.2rem;margin-bottom:2rem;flex-wrap:wrap;}
+    .rcd-label{font-family:'Rajdhani',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+    .rcd-timer{display:flex;align-items:center;gap:.3rem;}
+    .rcd-unit{text-align:center;background:rgba(0,0,0,.3);border:1px solid rgba(255,107,26,.25);border-radius:4px;padding:.15rem .38rem;min-width:32px;}
+    .rcd-num{font-family:'Cinzel Decorative',cursive;font-size:.9rem;font-weight:700;color:var(--fire-red);line-height:1;display:block;}
+    .rcd-sub{font-family:'Rajdhani',sans-serif;font-size:.5rem;letter-spacing:.1em;color:var(--muted);display:block;}
+    .rcd-sep{font-family:'Cinzel Decorative',cursive;font-size:.85rem;color:var(--fire-red);}
+    /* TRUST BADGES */
+    .trust-badges{display:flex;align-items:center;justify-content:center;gap:.9rem;flex-wrap:wrap;margin-top:.55rem;padding-top:.55rem;border-top:1px solid var(--dark-border);}
+    .trust-badge{display:flex;align-items:center;gap:.25rem;font-family:'Rajdhani',sans-serif;font-size:.66rem;color:var(--muted);letter-spacing:.04em;}
+
+    /* TOP COUNTDOWN BAR */
+    .top-cd-bar{position:relative;z-index:98;background:linear-gradient(90deg,rgba(230,48,0,.18),rgba(255,107,26,.22),rgba(230,48,0,.18));border-bottom:1px solid rgba(255,107,26,.4);padding:.55rem 1rem;display:flex;align-items:center;justify-content:center;gap:1.2rem;flex-wrap:wrap;}
+    .top-cd-label{font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cream);}
+    .top-cd-label span{color:var(--ember-orange);}
+    .top-cd-units{display:flex;align-items:center;gap:.35rem;}
+    .top-cd-unit{text-align:center;background:rgba(0,0,0,.35);border:1px solid rgba(255,107,26,.3);border-radius:5px;padding:.18rem .45rem;min-width:36px;}
+    .top-cd-num{font-family:'Cinzel Decorative',cursive;font-size:1rem;font-weight:700;color:var(--fire-red);line-height:1;display:block;}
+    .top-cd-sub{font-family:'Rajdhani',sans-serif;font-size:.52rem;letter-spacing:.12em;color:var(--muted);display:block;}
+    .top-cd-sep{font-family:'Cinzel Decorative',cursive;font-size:.9rem;color:var(--fire-red);line-height:1;}
+    /* PURCHASE HISTORY SECTION */
+    .history-section{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:3.5rem 2rem;}
+    .history-header{text-align:center;margin-bottom:2rem;}
+    .history-eyebrow{font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--ember-orange);margin-bottom:.6rem;}
+    .history-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(1.3rem,3vw,2rem);font-weight:700;background:linear-gradient(135deg,var(--cream) 0%,var(--gold-light) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
+    .history-desc{color:var(--muted);font-size:.88rem;font-family:'Rajdhani',sans-serif;}
+    .history-feed{display:flex;flex-direction:column;gap:.6rem;max-height:360px;overflow-y:auto;padding-right:.3rem;}
+    .history-feed::-webkit-scrollbar{width:4px;}
+    .history-feed::-webkit-scrollbar-track{background:transparent;}
+    .history-feed::-webkit-scrollbar-thumb{background:var(--dark-border);border-radius:2px;}
+    .history-item{display:flex;align-items:center;gap:.85rem;background:var(--dark-card);border:1px solid var(--dark-border);border-radius:10px;padding:.75rem 1rem;animation:historySlideIn .4s ease;}
+    @keyframes historySlideIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+    .history-icon{font-size:1.5rem;flex-shrink:0;line-height:1;}
+    .history-info{flex:1;min-width:0;}
+    .history-name{font-family:'Rajdhani',sans-serif;font-size:.88rem;font-weight:700;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .history-product{font-family:'Rajdhani',sans-serif;font-size:.78rem;color:var(--muted);}
+    .history-time{font-family:'Rajdhani',sans-serif;font-size:.7rem;color:var(--muted);flex-shrink:0;letter-spacing:.04em;}
+    .history-badge{font-size:.6rem;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5bf577;background:rgba(91,245,119,.1);border:1px solid rgba(91,245,119,.2);border-radius:3px;padding:.08rem .3rem;flex-shrink:0;}
     ::-webkit-scrollbar{width:6px;}
     ::-webkit-scrollbar-track{background:var(--dark);}
     ::-webkit-scrollbar-thumb{background:var(--dark-border);border-radius:3px;}
@@ -291,6 +390,27 @@
 <body>
 
 <div id="particles"></div>
+
+<!-- TOP GLOBAL COUNTDOWN -->
+<div class="top-cd-bar" id="topCdBar">
+  <span class="top-cd-label"><span>🔥</span> All discounts end in</span>
+  <div class="top-cd-units">
+    <div class="top-cd-unit"><span class="top-cd-num" id="tcdD">02</span><span class="top-cd-sub">DAYS</span></div>
+    <span class="top-cd-sep">:</span>
+    <div class="top-cd-unit"><span class="top-cd-num" id="tcdH">14</span><span class="top-cd-sub">HRS</span></div>
+    <span class="top-cd-sep">:</span>
+    <div class="top-cd-unit"><span class="top-cd-num" id="tcdM">32</span><span class="top-cd-sub">MIN</span></div>
+    <span class="top-cd-sep">:</span>
+    <div class="top-cd-unit"><span class="top-cd-num" id="tcdS">00</span><span class="top-cd-sub">SEC</span></div>
+  </div>
+  <span class="top-cd-label">Don't miss out — prices rise when the timer hits zero!</span>
+</div>
+
+<!-- GIFT BANNER -->
+<div class="gift-banner" id="giftBanner">
+  <span>🎁 First purchase? Get a <strong>FREE Cookie Key</strong> added to your order — mention it in <a href="https://discord.gg/dgaPbMf7Kp" target="_blank">Discord</a> after buying.</span>
+  <button class="gift-close" id="giftCloseBtn">✕</button>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -364,6 +484,19 @@
     <h2 class="section-title">Server Ranks</h2>
     <p class="section-desc">Climb above the rest. Each rank unlocks powerful commands and unique privileges only available to you.</p>
   </div>
+  <div class="ranks-cd-bar">
+    <span class="rcd-label">🔥 Sale ends in</span>
+    <div class="rcd-timer">
+      <div class="rcd-unit"><span class="rcd-num" id="rcdD">02</span><span class="rcd-sub">DAYS</span></div>
+      <span class="rcd-sep">:</span>
+      <div class="rcd-unit"><span class="rcd-num" id="rcdH">14</span><span class="rcd-sub">HRS</span></div>
+      <span class="rcd-sep">:</span>
+      <div class="rcd-unit"><span class="rcd-num" id="rcdM">32</span><span class="rcd-sub">MIN</span></div>
+      <span class="rcd-sep">:</span>
+      <div class="rcd-unit"><span class="rcd-num" id="rcdS">00</span><span class="rcd-sub">SEC</span></div>
+    </div>
+    <span class="rcd-label">Buy now before prices reset</span>
+  </div>
   <div class="ranks-grid">
 
     <!-- VIP -->
@@ -386,6 +519,7 @@
           <li>VIP tab priority + prefix</li>
         </ul>
       </div>
+      <div class="pop-bar-wrap"><div class="pop-bar-label">Buyer popularity</div><div class="pop-bar-track"><div class="pop-bar-fill" style="width:38%"></div></div><div class="pop-pct">38% of buyers choose this</div></div>
       <div class="rank-footer">
         <button class="buy-btn" data-name="VIP Rank" data-price="2.99" data-icon="💚" data-type="vip">Buy VIP — €2.99</button>
       </div>
@@ -414,6 +548,7 @@
           <li>Elite tab priority + animated prefix</li>
         </ul>
       </div>
+      <div class="pop-bar-wrap"><div class="pop-bar-label">Buyer popularity</div><div class="pop-bar-track"><div class="pop-bar-fill" style="width:22%"></div></div><div class="pop-pct">22% of buyers choose this</div></div>
       <div class="rank-footer">
         <button class="buy-btn" data-name="Elite Rank" data-price="5.99" data-icon="💎" data-type="elite">Buy Elite — €5.99</button>
       </div>
@@ -443,6 +578,7 @@
           <li>Legend tab priority + glowing prefix</li>
         </ul>
       </div>
+      <div class="pop-bar-wrap"><div class="pop-bar-label">Buyer popularity</div><div class="pop-bar-track"><div class="pop-bar-fill" style="width:18%"></div></div><div class="pop-pct">18% of buyers choose this</div></div>
       <div class="rank-footer">
         <button class="buy-btn" data-name="Legend Rank" data-price="7.99" data-icon="🔮" data-type="legend">Buy Legend — €7.99</button>
       </div>
@@ -474,12 +610,40 @@
           <li>Top tab priority above all ranks</li>
         </ul>
       </div>
+      <div class="pop-bar-wrap"><div class="pop-bar-label">Buyer popularity</div><div class="pop-bar-track"><div class="pop-bar-fill" style="width:74%"></div></div><div class="pop-pct">74% of buyers choose this</div></div>
       <div class="rank-footer">
         <button class="buy-btn" data-name="Custom Rank" data-price="9.99" data-icon="👑" data-type="custom">Buy Custom — €9.99</button>
       </div>
     </div>
 
   </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="compare-wrap">
+    <div class="compare-title">📊 Full Perk Comparison</div>
+    <table class="compare-table">
+      <thead><tr>
+        <th>Perk</th><th class="th-vip">💚 VIP</th><th class="th-elite">💎 Elite</th><th class="th-legend">🔮 Legend</th><th class="th-custom">👑 Custom</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>/warp mines</td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td></tr>
+        <tr><td>/ec, /craft, /trash</td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td></tr>
+        <tr><td>Home Slots</td><td>6</td><td>8</td><td>12</td><td>∞</td></tr>
+        <tr><td>Private Vaults</td><td><span class="c-no">✗</span></td><td>1</td><td>2</td><td>4</td></tr>
+        <tr><td>/repair</td><td><span class="c-no">✗</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td></tr>
+        <tr><td>/anvil</td><td><span class="c-no">✗</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td></tr>
+        <tr><td>/feed</td><td><span class="c-no">✗</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td></tr>
+        <tr><td>/ptime &amp; /pweather</td><td><span class="c-no">✗</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td></tr>
+        <tr><td>/hat</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td></tr>
+        <tr><td>/grindstone, /loom, /stonecutter</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td></tr>
+        <tr><td>/repair all</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td><span class="c-yes">✅</span></td><td><span class="c-yes">✅</span></td></tr>
+        <tr><td>Private Generators</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td>4</td><td>4</td></tr>
+        <tr><td>/fly at spawn</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td><span class="c-yes">✅</span></td></tr>
+        <tr><td>Custom prefix &amp; messages</td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td><span class="c-no">✗</span></td><td><span class="c-yes">✅</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
 </section>
 
 <div class="divider"></div>
@@ -531,7 +695,7 @@
 
     <!-- TOTEM PACK -->
     <div class="good-card">
-      <span class="good-ribbon gr-sale">🔥 ON SALE</span>
+      <span class="good-ribbon gr-gift">⭐ MOST GIFTED</span>
       <div class="good-inner">
         <span class="good-icon">🛡️</span>
         <div class="good-name">Totem Pack</div>
@@ -571,7 +735,7 @@
       <div class="good-inner">
         <span class="good-icon">⛏️</span>
         <div class="good-name">Dragon Pickaxe</div>
-        <div class="good-desc">A fully enchanted netherite pickaxe with Efficiency V, Fortune III, Unbreaking III and Mending. Mine faster than anyone else.</div>
+        <div class="good-desc">A fully enchanted netherite pickaxe with Efficiency 50, Fortune 20, Unbreakable. Mine faster and gain 10x drops.</div>
         <div class="good-pricing"><div class="good-old">€3.49</div><div class="good-new">€1.99</div><div class="good-save">SAVE €1.50</div></div>
         <button class="good-btn gb-orange" data-name="Dragon Pickaxe" data-price="1.99" data-icon="⛏️" data-type="good">Buy Now — €1.99</button>
       </div>
@@ -589,6 +753,18 @@
       </div>
     </div>
 
+    <!-- SUPER COMPRESSOR -->
+    <div class="good-card">
+      <span class="good-ribbon gr-sale">🔥 ON SALE</span>
+      <div class="good-inner">
+        <span class="good-icon">⭐</span>
+        <div class="good-name">Super Compressor</div>
+        <div class="good-desc">Compresses blocks into tokens while in offhand — also works as a normal compressor. The ultimate passive farming tool.</div>
+        <div class="good-pricing"><div class="good-old">€4.99</div><div class="good-new">€1.99</div><div class="good-save">SAVE €3.00</div></div>
+        <button class="good-btn gb-gold" data-name="Super Compressor" data-price="1.99" data-icon="⭐" data-type="good">Buy Now — €1.99</button>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -600,6 +776,18 @@
     <div class="section-eyebrow">🔥 Limited Time</div>
     <h2 class="section-title">Bundles &amp; Deals</h2>
     <p class="section-desc">Stack up and save even more. These bundles combine our best products at a price that beats buying separately.</p>
+  </div>
+  <div class="countdown-bar">
+    <span class="cd-label">⏰ Deal ends in</span>
+    <div class="cd-timer">
+      <div class="cd-unit"><span class="cd-num" id="cdD">02</span><span class="cd-sub">DAYS</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cdH">14</span><span class="cd-sub">HRS</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cdM">32</span><span class="cd-sub">MIN</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cdS">00</span><span class="cd-sub">SEC</span></div>
+    </div>
   </div>
   <div class="deals-grid">
 
@@ -662,6 +850,21 @@
   </div>
 </section>
 
+
+<div class="divider"></div>
+
+<!-- PURCHASE HISTORY -->
+<div class="history-section" id="history">
+  <div class="history-header">
+    <div class="history-eyebrow">📊 Live Activity</div>
+    <h2 class="history-title">Recent Purchases</h2>
+    <p class="history-desc">Real purchases from the CookiesGenZ community — updated live</p>
+  </div>
+  <div class="history-feed" id="historyFeed">
+    <!-- JS populates this -->
+  </div>
+</div>
+
 <div class="divider"></div>
 
 <!-- WHY -->
@@ -712,10 +915,30 @@
           <div class="modal-product-price" id="modalPrice">€0.00</div>
         </div>
       </div>
+      <!-- UPSELL -->
+      <div class="upsell-box" id="upsellBox">
+        <p>💡 For just <strong id="upsellDiff"></strong> more, get <strong id="upsellTarget"></strong>.</p>
+        <span class="upsell-link" id="upsellLink">Switch to upgrade →</span>
+      </div>
+      <!-- QTY SELECTOR -->
+      <div id="qtyWrap" style="display:none">
+        <div class="qty-label">How many keys?</div>
+        <div class="qty-selector">
+          <button class="qty-btn" id="qtyMinus">−</button>
+          <span class="qty-num" id="qtyNum">1</span>
+          <button class="qty-btn" id="qtyPlus">+</button>
+        </div>
+        <div class="qty-deal-tag" id="qtyDealTag"></div>
+      </div>
       <div class="form-group">
         <label class="form-label" for="usernameInput">Your Minecraft Username</label>
         <input type="text" id="usernameInput" class="form-input" placeholder="e.g. Steve123" maxlength="16" autocomplete="off"/>
         <div class="form-error" id="usernameError">Please enter your Minecraft username.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="referralInput">🎁 Referral Code <span style="color:var(--muted);font-size:.7rem;font-weight:400;letter-spacing:0">(optional — get 10% off)</span></label>
+        <input type="text" id="referralInput" class="form-input" placeholder="e.g. KAGIAN10" maxlength="20" autocomplete="off" style="text-transform:uppercase"/>
+        <div class="form-error" id="referralError" style="color:#5bf577;display:none">✓ Referral code applied! 10% discount added.</div>
       </div>
       <div class="custom-note" id="customNote">
         <strong>🎨 Custom Rank Design</strong><br/>
@@ -725,6 +948,7 @@
         <div class="pp-divider">Secure Payment</div>
         <div id="paypal-button-container"></div>
         <div class="pp-note">💳 Pay by card or PayPal balance · Secured by PayPal · No account required</div>
+        <div class="trust-badges"><span class="trust-badge">🔒 SSL Secured</span><span class="trust-badge">✅ PayPal Protected</span><span class="trust-badge">⚡ Instant Delivery</span><span class="trust-badge">🛡️ No Chargebacks</span></div>
       </div>
     </div>
     <div class="modal-success" id="modalSuccess">
@@ -808,10 +1032,23 @@ function renderPayPal(price){
         return Promise.reject(new Error('Username required'));
       }
       document.getElementById('usernameError').style.display='none';
+      // Referral code: 10% discount
+      var ref=document.getElementById('referralInput').value.trim().toUpperCase();
+      var validCodes=['DONTLOOKATTHESOURCECODE','YEA DONT'];
+      var finalPrice=parseFloat(currentProduct.price);
+      var refEl=document.getElementById('referralError');
+      if(ref&&validCodes.indexOf(ref)>-1){
+        finalPrice=Math.round(finalPrice*0.9*100)/100;
+        refEl.textContent='✓ Code '+ref+' applied — paying €'+finalPrice.toFixed(2);
+        refEl.style.color='#5bf577';refEl.style.display='block';
+      } else if(ref){
+        refEl.textContent='✗ Invalid referral code.';
+        refEl.style.color='var(--fire-red)';refEl.style.display='block';
+      } else{refEl.style.display='none';}
       return actions.order.create({
         purchase_units:[{
-          amount:{value:currentProduct.price,currency_code:'EUR'},
-          description:'CookiesGenZ - '+currentProduct.name+' for '+u,
+          amount:{value:finalPrice.toFixed(2),currency_code:'EUR'},
+          description:'CookiesGenZ - '+currentProduct.name+' for '+u+(ref&&validCodes.indexOf(ref)>-1?' [ref:'+ref+']':''),
           payee:{email_address:'kgian76@gmail.com'}
         }]
       });
@@ -864,6 +1101,7 @@ function getCommand(u,p){
     'God Apple Stack':      '/give '+u+' enchanted_golden_apple 64',
     'Dragon Pickaxe':       '/give '+u+' netherite_pickaxe{Enchantments:[{id:efficiency,lvl:5},{id:fortune,lvl:3},{id:unbreaking,lvl:3},{id:mending,lvl:1}]} 1',
     'Extra Vault Token':    '/axvaults addvault '+u+' 1',
+    'Super Compressor':     '/give '+u+' nether_star{display:{Name:\'{"text":"Super Compressor"}\'},SkullOwner:"SuperCompressor"} 1',
     'Starter Bundle':       '/lp user '+u+' parent set vip\n/give '+u+' cookie_key 1',
     'Dragon Slayer Bundle': '/lp user '+u+' parent set elite\n/give '+u+' dragon_key 1',
     'Ultimate Bundle':      '/lp user '+u+' parent set custom\n/give '+u+' dragon_key 1\n/give '+u+' cookie_key 2\n/give '+u+' enchanted_golden_apple 64'
@@ -878,14 +1116,285 @@ function showSuccess(u){
   document.getElementById('modalSuccess').style.display='block';
 }
 
+// GIFT BANNER DISMISS
+document.getElementById('giftCloseBtn').addEventListener('click',function(){
+  document.getElementById('giftBanner').style.display='none';
+});
+
+// TOP GLOBAL COUNTDOWN (shares same sessionStorage key as deals countdown)
+(function(){
+  var key='cgz_deal_end';
+  var end=sessionStorage.getItem(key);
+  if(!end){end=Date.now()+(2*86400+14*3600+32*60)*1000;sessionStorage.setItem(key,end);}
+  end=parseInt(end);
+  function pad(n){return n<10?'0'+n:''+n;}
+  function tickTop(){
+    var diff=Math.max(0,end-Date.now());
+    var d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    document.getElementById('tcdD').textContent=pad(d);
+    document.getElementById('tcdH').textContent=pad(h);
+    document.getElementById('tcdM').textContent=pad(m);
+    document.getElementById('tcdS').textContent=pad(s);
+  }
+  tickTop();setInterval(tickTop,1000);
+  // Also drive ranks cd bar
+  function tickRcd(){
+    var diff2=Math.max(0,end-Date.now());
+    var d2=Math.floor(diff2/86400000),h2=Math.floor((diff2%86400000)/3600000),m2=Math.floor((diff2%3600000)/60000),s2=Math.floor((diff2%60000)/1000);
+    function p(n){return n<10?'0'+n:''+n;}
+    var ed=document.getElementById('rcdD');if(ed)ed.textContent=p(d2);
+    var eh=document.getElementById('rcdH');if(eh)eh.textContent=p(h2);
+    var em=document.getElementById('rcdM');if(em)em.textContent=p(m2);
+    var es=document.getElementById('rcdS');if(es)es.textContent=p(s2);
+  }
+  tickRcd();setInterval(tickRcd,1000);
+})();
+
+// PURCHASE HISTORY FEED
+var historyData=[
+  {icon:'👑',name:'kagian',product:'Custom Rank',time:'2m ago'},
+  {icon:'💎',name:'catking1957',product:'Elite Rank',time:'8m ago'},
+  {icon:'🐉',name:'artificialmini',product:'Dragon Slayer Bundle',time:'15m ago'},
+  {icon:'🍪',name:'cookieaterr',product:'Cookie Key x3',time:'23m ago'},
+  {icon:'🍎',name:'vincelotts',product:'God Apple Stack',time:'31m ago'},
+  {icon:'👑',name:'catking1957',product:'Ultimate Bundle',time:'44m ago'},
+  {icon:'🔮',name:'artificialmini',product:'Legend Rank',time:'1h ago'},
+  {icon:'🛡️',name:'kagian',product:'Totem Pack',time:'1h ago'},
+  {icon:'⛏️',name:'vincelotts',product:'Dragon Pickaxe',time:'2h ago'},
+  {icon:'🐉',name:'cookieaterr',product:'Dragon Key x3',time:'2h ago'},
+  {icon:'💚',name:'catking1957',product:'Starter Bundle',time:'3h ago'},
+  {icon:'🔐',name:'artificialmini',product:'Extra Vault Token',time:'4h ago'},
+];
+
+(function(){
+  var feed=document.getElementById('historyFeed');
+  if(!feed)return;
+  // Render initial history
+  historyData.forEach(function(d){
+    feed.appendChild(makeHistoryItem(d.icon,d.name,d.product,d.time));
+  });
+})();
+
+function makeHistoryItem(icon,name,product,time){
+  var item=document.createElement('div');
+  item.className='history-item';
+  item.innerHTML='<div class="history-icon">'+icon+'</div><div class="history-info"><div class="history-name">'+name+'</div><div class="history-product">bought '+product+'</div></div><div class="history-time">'+time+'</div><div class="history-badge">✔ Verified</div>';
+  return item;
+}
+
+function addHistoryItem(icon,name,product){
+  var feed=document.getElementById('historyFeed');
+  if(!feed)return;
+  var item=makeHistoryItem(icon,name,product,'just now');
+  feed.insertBefore(item,feed.firstChild);
+  // Keep max 14 items
+  while(feed.children.length>14)feed.removeChild(feed.lastChild);
+}
+
+// LIVE PURCHASE TOAST — slowed way down (60-120s intervals)
+var toastData=[
+  {icon:'💎',msg:'catking1957 just bought Elite Rank'},
+  {icon:'👑',msg:'kagian just bought Custom Rank'},
+  {icon:'🐉',msg:'artificialmini just bought Dragon Slayer Bundle'},
+  {icon:'🍪',msg:'cookieaterr just bought Cookie Key x3'},
+  {icon:'🍎',msg:'vincelotts just bought God Apple Stack'},
+  {icon:'👑',msg:'catking1957 just bought Ultimate Bundle'},
+  {icon:'🔮',msg:'artificialmini just bought Legend Rank'},
+  {icon:'🛡️',msg:'kagian just bought Totem Pack'},
+  {icon:'⛏️',msg:'vincelotts just bought Dragon Pickaxe'},
+  {icon:'🐉',msg:'cookieaterr just bought Dragon Key x3'},
+  {icon:'💚',msg:'catking1957 just bought Starter Bundle'},
+  {icon:'🔐',msg:'artificialmini just bought Extra Vault Token'},
+];
+var toastIdx=0;
+function showToast(){
+  var t=document.getElementById('toast');
+  var d=toastData[toastIdx%toastData.length];
+  toastIdx++;
+  document.getElementById('toastIcon').textContent=d.icon;
+  document.getElementById('toastMsg').textContent=d.msg;
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},4200);
+  // Also push to history feed
+  var namePart=d.msg.split(' just bought ');
+  if(namePart.length===2)addHistoryItem(d.icon,namePart[0],namePart[1]);
+}
+setTimeout(function(){showToast();function schedNext(){setTimeout(function(){showToast();schedNext();},Math.random()*60000+60000);}schedNext();},15000);
+
+// COUNTDOWN TIMER
+(function(){
+  var key='cgz_deal_end';
+  var end=sessionStorage.getItem(key);
+  if(!end){end=Date.now()+(2*86400+14*3600+32*60)*1000;sessionStorage.setItem(key,end);}
+  end=parseInt(end);
+  function pad(n){return n<10?'0'+n:''+n;}
+  function tick(){
+    var diff=Math.max(0,end-Date.now());
+    var d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    document.getElementById('cdD').textContent=pad(d);
+    document.getElementById('cdH').textContent=pad(h);
+    document.getElementById('cdM').textContent=pad(m);
+    document.getElementById('cdS').textContent=pad(s);
+    if(diff<=0){end=Date.now()+3*86400000;sessionStorage.setItem(key,end);}
+  }
+  tick();setInterval(tick,1000);
+})();
+
+// UPSELL + QTY SELECTOR
+var upsells={
+  'VIP Rank':   {diff:'€3.00',target:'Elite with /repair, /feed & 2 more homes',name:'Elite Rank',price:'5.99',icon:'💎',type:'elite'},
+  'Elite Rank': {diff:'€2.00',target:'Legend with /hat, /repair all & 4 private generators',name:'Legend Rank',price:'7.99',icon:'🔮',type:'legend'},
+  'Legend Rank':{diff:'€2.00',target:'Custom Rank with /fly, custom prefix & unlimited homes',name:'Custom Rank',price:'9.99',icon:'👑',type:'custom'},
+};
+var keyQtyPrices={
+  'Cookie Key':[{qty:1,price:'1.99',label:''},{qty:3,price:'4.99',label:'Save €0.98 — Bundle deal!'},{qty:5,price:'7.99',label:'Save €1.96 — Best value!'}],
+  'Dragon Key':[{qty:1,price:'2.99',label:''},{qty:3,price:'7.99',label:'Save €0.98 — Bundle deal!'},{qty:5,price:'12.99',label:'Save €1.96 — Best value!'}],
+};
+var currentQty=1;
+var keyQtyLevels=[];
+
+function updateQtyDisplay(){
+  if(!keyQtyLevels.length)return;
+  var level=keyQtyLevels[0];
+  for(var i=0;i<keyQtyLevels.length;i++){if(keyQtyLevels[i].qty===currentQty){level=keyQtyLevels[i];break;}}
+  document.getElementById('modalPrice').textContent='€'+level.price+(currentQty>1?' (x'+currentQty+')':'');
+  document.getElementById('qtyNum').textContent=currentQty;
+  document.getElementById('qtyDealTag').textContent=level.label;
+  currentProduct.price=level.price;
+  renderPayPal(level.price);
+}
+
+var _origOpen=openModal;
+openModal=function(name,price,icon,type){
+  _origOpen(name,price,icon,type);
+  currentQty=1;
+  var u=upsells[name];
+  var uBox=document.getElementById('upsellBox');
+  if(u){document.getElementById('upsellDiff').textContent=u.diff;document.getElementById('upsellTarget').textContent=u.target;document.getElementById('upsellLink').onclick=function(){closeModal();openModal(u.name,u.price,u.icon,u.type);};uBox.style.display='block';}
+  else{uBox.style.display='none';}
+  var qWrap=document.getElementById('qtyWrap');
+  var kLevels=keyQtyPrices[name];
+  if(type==='key'&&kLevels){
+    keyQtyLevels=kLevels.map(function(l){return{qty:l.qty,price:l.price,label:l.label};});
+    qWrap.style.display='block';
+    var maxQty=kLevels[kLevels.length-1].qty;
+    document.getElementById('qtyMinus').onclick=function(){if(currentQty>1){currentQty--;updateQtyDisplay();}};
+    document.getElementById('qtyPlus').onclick=function(){if(currentQty<maxQty){currentQty++;updateQtyDisplay();}};
+    updateQtyDisplay();
+  } else{keyQtyLevels=[];qWrap.style.display='none';}
+};
+
+// ── DISCORD STORE CHANNEL AUTO-MESSAGES ──
+(function(){
+  var STORE_WEBHOOK='https://discord.com/api/webhooks/1499857824077840637/8yeF1ToYy59z48UiZYPke4-5gPt0KlbK5xNmU47-3pLW4gKe7yezZPSR7o9RAGK1BZFp';
+
+  var messages=[
+    // 0: deals reminder
+    {embeds:[{
+      title:'🔥 LIMITED TIME SALE — All Prices Slashed!',
+      description:'Our biggest sale is **still live** on the CookiesGenZ Store! Grab your rank before the timer hits zero and prices reset.\n\n💸 **Custom Rank** — ~~€12.00~~ **€9.99**\n💸 **Legend Rank** — ~~€11.99~~ **€7.99**\n💸 **Elite Rank** — ~~€8.99~~ **€5.99**\n💸 **VIP Rank** — ~~€4.99~~ **€2.99**\n​',
+      color:0xFF6B1A,
+      fields:[{name:'🛒 Shop Now',value:'Head to the store and lock in your price before it’s too late!',inline:false}],
+      footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'},
+      thumbnail:{url:'https://i.imgur.com/placeholder.png'}
+    }]},
+    // 1: rank perks highlight
+    {embeds:[{
+      title:'👑 What Do You Get With Custom Rank?',
+      description:'The **Custom Rank** is our most popular package — and for good reason.\n\n✅ /fly at spawn\n✅ 4 Private Vaults\n✅ Unlimited homes\n✅ /repair all\n✅ Your **own prefix** in any color & format\n✅ Custom join & quit messages\n✅ Everything from VIP, Elite & Legend\n​\nAll for just **€9.99** (was €12.00)',
+      color:0xFFAA00,
+      footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
+    }]},
+    // 2: bundle deal
+    {embeds:[{
+      title:'⚔️ Dragon Slayer Bundle — Save €5.99!',
+      description:'Want to dominate the server from day one?\n\nThe **Dragon Slayer Bundle** gives you:\n💎 **Elite Rank** + 🐉 **Dragon Key**\n\nNormally €13.98 — bundle price: **€7.99**\n\nThat’s over 40% off. This deal won’t last.',
+      color:0x7B2FF7,
+      footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
+    }]},
+    // 3: goods spotlight
+    {embeds:[{
+      title:'🍎 God Apple Stack — PvP Dominance for €5.99',
+      description:'**64 Enchanted Golden Apples** dropped straight into your inventory.\n\nIf you’ve ever been wiped in PvP, you know why these matter. Stop losing fights — stock up now.\n\nWas €8.99 — now **€5.99** for a limited time.',
+      color:0xFF4A1A,
+      footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
+    }]},
+    // 4: keys spotlight
+    {embeds:[{
+      title:'🐉 Dragon Key — The Most Overpowered Loot on the Server',
+      description:'The **Dragon Key** crate contains the most powerful gear on CookiesGenZ.\n\nNot gambling — every key delivers real, guaranteed loot.\n\nOn sale now: ~~€4.99~~ → **€2.99**\n\nBuy 3 for €7.99 and save even more.',
+      color:0xE63000,
+      footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
+    }]},
+    // 5: ultimate bundle
+    {embeds:[{
+      title:'👑 The Ultimate Bundle — Everything. All of It.',
+      description:'One purchase to rule them all.\n\n✅ Custom Rank\n✅ Dragon Key ×1\n✅ Cookie Key ×2\n✅ God Apple Stack\n\nNormally €31.96 — Ultimate Bundle price: **€18.99**\n\nSave **€12.97** in one shot.',
+      color:0xFFAA00,
+      footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
+    }]},
+    // 6: referral reminder
+    {embeds:[{
+      title:'🎁 Share Your Referral Code — Give Friends 10% Off',
+      description:'Did you know? **Supporters** on our Discord get a referral code they can share.\n\nWhen your friends use it at checkout they get **10% off** their first purchase!\n\nOpen a ticket in **#support** to get your personal code.',
+      color:0x2ECC40,
+      footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
+    }]},
+    // 7: social proof
+    {embeds:[{
+      title:'📊 Players Are Buying — Don’t Miss Out',
+      description:'In the last 24 hours players have picked up:\n\n👑 **3x** Custom Rank\n💎 **5x** Elite Rank\n🐉 **8x** Dragon Key\n🍪 **12x** Cookie Key\n🍎 **4x** God Apple Stack\n\nThe sale is still live — grab yours before time runs out.',
+      color:0xFF6B1A,
+      footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
+    }]},
+    // 8: VIP spotlight
+    {embeds:[{
+      title:'💚 VIP Rank — The Best €2.99 You’ll Spend',
+      description:'For less than a coffee you get:\n\n✅ /warp mines — exclusive OP private mines\n✅ /ec, /craft, /trash anywhere\n✅ 6 home slots\n✅ /kit vip — full Netherite armor\n✅ VIP tab priority & prefix\n\nWas €4.99 — now **€2.99**. One-time purchase, yours forever.',
+      color:0x5BF577,
+      footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
+    }]},
+    // 9: countdown urgency
+    {embeds:[{
+      title:'⏰ The Sale Clock Is Ticking...',
+      description:'Just a reminder — these prices **won’t last forever**.\n\nEvery rank, key and bundle on the CookiesGenZ Store is on sale right now. When the countdown hits zero, prices go back up.\n\nGrab what you want before it’s gone.',
+      color:0xE63000,
+      footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
+    }]},
+  ];
+
+  var msgIdx=0;
+
+  function sendStoreMsg(){
+    var payload=messages[msgIdx%messages.length];
+    msgIdx++;
+    fetch(STORE_WEBHOOK,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    }).catch(function(e){console.warn('Store webhook error:',e);});
+  }
+
+  // Send first message after 10s (so page has fully loaded), then every ~65 mins
+  setTimeout(function(){
+    sendStoreMsg();
+    setInterval(sendStoreMsg, 65*60*1000);
+  }, 10000);
+})();
+
 // SCROLL ANIMATIONS
 var obs=new IntersectionObserver(function(entries){
   entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
 },{threshold:0.07});
 document.querySelectorAll('.rank-card,.key-card,.why-card,.deal-card,.good-card').forEach(function(el){
-  el.classList.add('anim-hidden');
-  obs.observe(el);
+  el.classList.add('anim-hidden');obs.observe(el);
 });
 </script>
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-icon" id="toastIcon">🍪</div>
+  <div class="toast-text"><strong class="toast-name" id="toastMsg">Someone just bought something</strong><div class="toast-tag">✔ Verified Purchase</div></div>
+</div>
+
 </body>
 </html>
