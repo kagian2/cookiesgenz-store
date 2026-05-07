@@ -1035,7 +1035,7 @@ function renderPayPal(price){
       document.getElementById('usernameError').style.display='none';
       // Referral code: 10% discount
       var ref=document.getElementById('referralInput').value.trim().toUpperCase();
-      var validCodes=['DONTLOOKATTHESOURCECODE','YEA DONT'];
+      var validCodes=['DONTLOOKATTHESOURCECODE','YEA DONT','WMEMBERS'];
       var finalPrice=parseFloat(currentProduct.price);
       var refEl=document.getElementById('referralError');
       if(ref&&validCodes.indexOf(ref)>-1){
