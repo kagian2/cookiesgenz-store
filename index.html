@@ -143,8 +143,38 @@
     .key-card:hover{transform:translateY(-5px);}
     .cookie-key{border-color:rgba(255,170,0,.38);}
     .dragon-key{border-color:rgba(230,48,0,.42);}
+    .heavenly-key{border-color:rgba(180,120,255,.55);box-shadow:0 0 30px rgba(180,120,255,.08);}
     .cookie-key:hover{box-shadow:0 16px 44px rgba(255,170,0,.18);}
     .dragon-key:hover{box-shadow:0 16px 44px rgba(230,48,0,.22);}
+    .heavenly-key:hover{box-shadow:0 16px 50px rgba(180,120,255,.3);}
+    .kr-heavenly{background:linear-gradient(90deg,#6a00cc,#c77dff,#fff8ff);color:#fff;}
+    .heavenly-key .key-name{background:linear-gradient(135deg,#e0c3fc,#c77dff,#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .heavenly-key .key-btn{background:linear-gradient(135deg,#7b2ff7,#c77dff,#e0c3fc);color:#fff;box-shadow:0 4px 20px rgba(123,47,247,.4);}
+    .heavenly-key .key-icon{filter:drop-shadow(0 0 12px rgba(200,140,255,.7));}
+    .heavenly-pick-info{background:rgba(180,120,255,.07);border:1px solid rgba(180,120,255,.22);border-radius:8px;padding:.7rem 1rem;margin-bottom:.9rem;font-family:'Rajdhani',sans-serif;font-size:.8rem;color:#d4b8ff;line-height:1.5;text-align:left;}
+    .heavenly-pick-info strong{color:#e0c3fc;}
+    /* DONATION */
+    .donation-section{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:4rem 2rem;}
+    .donation-card{background:linear-gradient(135deg,rgba(46,204,64,.06),rgba(255,170,0,.05));border:1px solid rgba(46,204,64,.25);border-radius:20px;padding:2.5rem 2.5rem 2rem;text-align:center;}
+    .donation-icon{font-size:3rem;margin-bottom:.6rem;display:block;animation:float 3s ease-in-out infinite;}
+    .donation-title{font-family:'Cinzel Decorative',cursive;font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,#5bf577,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
+    .donation-desc{font-family:'Rajdhani',sans-serif;color:var(--muted);font-size:.9rem;max-width:460px;margin:0 auto 1.8rem;line-height:1.65;}
+    .donation-form{display:flex;flex-direction:column;align-items:center;gap:1rem;max-width:400px;margin:0 auto;}
+    .donation-row{display:flex;gap:.8rem;width:100%;flex-wrap:wrap;}
+    .donation-input-wrap{flex:1;min-width:140px;text-align:left;}
+    .donation-label{display:block;font-family:'Rajdhani',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.38rem;}
+    .donation-input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--dark-border);border-radius:8px;padding:.7rem .9rem;font-family:'Exo 2',sans-serif;font-size:.93rem;color:var(--cream);outline:none;transition:border-color .2s;}
+    .donation-input:focus{border-color:#5bf577;}
+    .donation-input::placeholder{color:var(--muted);}
+    .donation-slider-wrap{width:100%;text-align:left;}
+    .donation-slider{width:100%;accent-color:#5bf577;cursor:pointer;margin:.3rem 0;}
+    .donation-amount-display{font-family:'Cinzel Decorative',cursive;font-size:2rem;font-weight:700;color:#5bf577;margin:.2rem 0 .1rem;text-align:center;}
+    .donation-presets{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.3rem;}
+    .donation-preset{background:rgba(91,245,119,.08);border:1px solid rgba(91,245,119,.2);color:#5bf577;font-family:'Rajdhani',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.08em;padding:.28rem .7rem;border-radius:5px;cursor:pointer;transition:background .2s;}
+    .donation-preset:hover,.donation-preset.active{background:rgba(91,245,119,.2);}
+    .donation-btn{background:linear-gradient(135deg,#2ecc40,#1a8a26);color:#fff;padding:.85rem 2.2rem;border-radius:8px;border:none;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(46,204,64,.3);transition:transform .2s,box-shadow .2s;width:100%;}
+    .donation-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(46,204,64,.45);}
+    .donation-note{font-family:'Rajdhani',sans-serif;font-size:.72rem;color:var(--muted);margin-top:.8rem;}
     .key-ribbon{display:block;text-align:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.18em;padding:.38rem;flex-shrink:0;}
     .kr-gold{background:linear-gradient(90deg,#9c6f00,var(--gold));color:var(--dark);}
     .kr-fire{background:linear-gradient(90deg,var(--fire-red),var(--ember-orange));color:#fff;}
@@ -281,13 +311,7 @@
     .gift-banner a{color:#5bf577;text-decoration:underline;}
     .gift-close{position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:0;line-height:1;}
     .gift-close:hover{color:var(--cream);}
-    /* TOAST */
-    .toast{position:fixed;bottom:1.5rem;left:1.5rem;z-index:9999;background:var(--dark-card2);border:1px solid var(--dark-border);border-radius:12px;padding:.85rem 1.1rem;display:flex;align-items:center;gap:.75rem;box-shadow:0 8px 32px rgba(0,0,0,.55);transform:translateX(-130%);transition:transform .4s cubic-bezier(.175,.885,.32,1.275);max-width:290px;pointer-events:none;}
-    .toast.show{transform:translateX(0);}
-    .toast-icon{font-size:1.6rem;flex-shrink:0;line-height:1;}
-    .toast-text{font-family:'Rajdhani',sans-serif;font-size:.8rem;color:var(--text-body);line-height:1.4;}
-    .toast-name{display:block;font-size:.86rem;color:var(--cream);font-weight:700;}
-    .toast-tag{font-size:.66rem;color:var(--ember-orange);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:.12rem;}
+
     /* POPULARITY BAR */
     .pop-bar-wrap{padding:.55rem 1.5rem .8rem;border-top:1px solid var(--dark-border);}
     .pop-bar-label{font-family:'Rajdhani',sans-serif;font-size:.66rem;color:var(--muted);margin-bottom:.28rem;}
@@ -408,7 +432,7 @@
 
 <!-- GIFT BANNER -->
 <div class="gift-banner" id="giftBanner">
-  <span>🎁 First purchase? Get a <strong>FREE Cookie Key</strong> added to your order — mention it in <a href="https://discord.gg/dgaPbMf7Kp" target="_blank">Discord</a> after buying.</span>
+  <span>🎁 First purchase? Get a <strong>FREE Cookie Key</strong> added to your order — open a ticket in <a href="https://discord.gg/dgaPbMf7Kp" target="_blank">Discord</a> after buying.</span>
   <button class="gift-close" id="giftCloseBtn">✕</button>
 </div>
 
@@ -421,8 +445,9 @@
   <ul class="nav-links">
     <li><a href="#ranks">Ranks</a></li>
     <li><a href="#keys">Keys</a></li>
-    <li><a href="#goods">Goods</a></li>
+    <li><a href="#goods">Items</a></li>
     <li><a href="#deals">Deals</a></li>
+    <li><a href="#donate">Donate</a></li>
     <li><a href="#why">Why Us</a></li>
     <li><a href="https://discord.gg/dgaPbMf7Kp" target="_blank" class="nav-cta">Discord</a></li>
   </ul>
@@ -430,13 +455,13 @@
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">🔥 Limited Time Deals Active Now</div>
+  <div class="hero-badge">🔥 Limited DEALS ENDING SOON!</div>
   <h1>CookiesGenZ<br/>Store</h1>
-  <p class="hero-sub">Minecraft Network · Level Up Your Game</p>
-  <p class="hero-desc">Unlock exclusive perks, dominate with overpowered gear, and stand out from the crowd. All purchases delivered instantly — no waiting required.</p>
+  <p class="hero-sub">Minecraft Server · Level Up Your Game</p>
+  <p class="hero-desc">Unlock exclusive perks with ranks, dominate with overpowered gear, and stand out from the crowd. All purchases delivered instantly — and secured by paypal</p>
   <div class="hero-btns">
     <a href="#ranks" class="btn-primary">🛒 Browse Ranks</a>
-    <a href="#deals" class="btn-secondary">🔥 View Deals</a>
+    <a href="#keys" class="btn-secondary">🔥 View Keys</a>
   </div>
   <div class="server-ip-bar">
     <span>Server IP</span>
@@ -448,7 +473,7 @@
 <!-- TICKER -->
 <div class="sale-banner">
   <div class="ticker-track">
-    <span>🔥 LIMITED TIME DEALS</span><span class="tk">•</span>
+    <span>🔥 LIMITED TIME DISCOUNTS</span><span class="tk">•</span>
     <span>VIP WAS €4.99 NOW €2.99</span><span class="tk">•</span>
     <span>ELITE WAS €8.99 NOW €5.99</span><span class="tk">•</span>
     <span>LEGEND WAS €11.99 NOW €7.99</span><span class="tk">•</span>
@@ -471,10 +496,10 @@
 
 <!-- STATS -->
 <div class="stats-bar">
-  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Players Joined</div></div>
+  <div class="stat"><div class="stat-num">10000+</div><div class="stat-label">Players have Joined</div></div>
   <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Online &amp; Uptime</div></div>
-  <div class="stat"><div class="stat-num">11</div><div class="stat-label">Packages Available</div></div>
-  <div class="stat"><div class="stat-num">⚡</div><div class="stat-label">Instant Delivery</div></div>
+  <div class="stat"><div class="stat-num">Paypal AND Card</div><div class="stat-label">Secured by paypal</div></div>
+  <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Purchases made</div></div>
 </div>
 
 <!-- RANKS -->
@@ -482,10 +507,10 @@
   <div class="section-header">
     <div class="section-eyebrow">Exclusive Perks</div>
     <h2 class="section-title">Server Ranks</h2>
-    <p class="section-desc">Climb above the rest. Each rank unlocks powerful commands and unique privileges only available to you.</p>
+    <p class="section-desc">Climb above the rest. Each rank unlocks powerful commands and unique permissions only available to you.  Every rank has access to op private gens</p>
   </div>
   <div class="ranks-cd-bar">
-    <span class="rcd-label">🔥 Sale ends in</span>
+    <span class="rcd-label">🔥 Discount ends in</span>
     <div class="rcd-timer">
       <div class="rcd-unit"><span class="rcd-num" id="rcdD">02</span><span class="rcd-sub">DAYS</span></div>
       <span class="rcd-sep">:</span>
@@ -515,7 +540,7 @@
           <li>/craft — Portable crafting table</li>
           <li>/trash — Instant item disposal</li>
           <li>6 Home slots</li>
-          <li>/kit vip — Exclusive VIP kit</li>
+          <li>/kit vip — Exclusive VIP kit (preview in game)</li>
           <li>VIP tab priority + prefix</li>
         </ul>
       </div>
@@ -542,6 +567,8 @@
           <li>/anvil — Portable anvil</li>
           <li>/hide —  Hides all players</li>
           <li>/feed — Instantly fill hunger</li>
+          <li>/ignore — Ignore certain players</li>
+          <li>/skin — Change your skin to any name instantly</li>
           <li>/ptime — Set your personal time of day</li>
           <li>/pweather — Set your personal weather</li>
           <li>8 Home slots</li>
@@ -561,13 +588,13 @@
       <div class="rank-header">
         <div class="rank-icon">🔮</div>
         <div class="rank-info"><div class="rank-name">Legend</div><div class="rank-tagline">Rise Above All</div></div>
-        <div class="rank-price"><div class="p-old">€11.99</div><div class="p-new">€7.99</div><div class="p-unit">one-time</div><div class="p-save">SAVE €4.00</div></div>
+        <div class="rank-price"><div class="p-old">€14.99</div><div class="p-new">€8.99</div><div class="p-unit">one-time</div><div class="p-save">SAVE €6.00</div></div>
       </div>
       <div class="rank-perks">
         <div class="perks-label">Included Perks</div>
-        <div class="perk-inherit pi-b">✓ Everything in Elite</div>
+        <div class="perk-inherit pi-b">✓ Everything in Elite, Vip</div>
         <ul class="perk-list">
-          <li>/pv 2 — 2 private vaults</li>
+          <li>/pv 1, 2 — 2 private vaults</li>
           <li>/hat — Wear any block as a hat</li>
           <li>/grindstone — Portable grindstone</li>
           <li>/loom — Portable loom</li>
@@ -581,7 +608,7 @@
       </div>
       <div class="pop-bar-wrap"><div class="pop-bar-label">Buyer popularity</div><div class="pop-bar-track"><div class="pop-bar-fill" style="width:18%"></div></div><div class="pop-pct">18% of buyers choose this</div></div>
       <div class="rank-footer">
-        <button class="buy-btn" data-name="Legend Rank" data-price="7.99" data-icon="🔮" data-type="legend">Buy Legend — €7.99</button>
+        <button class="buy-btn" data-name="Legend Rank" data-price="8.99" data-icon="🔮" data-type="legend">Buy Legend — €8.99</button>
       </div>
     </div>
 
@@ -593,19 +620,19 @@
         <div class="rank-info">
           <!-- Two-word split so Cinzel Decorative never overflows -->
           <div class="rank-name">Custom<br/>Rank</div>
-          <div class="rank-tagline">Build Your Legend</div>
+          <div class="rank-tagline">Build Your name</div>
         </div>
-        <div class="rank-price"><div class="p-old">€12.00</div><div class="p-new">€9.99</div><div class="p-unit">one-time</div><div class="p-save">SAVE €2.01</div></div>
+        <div class="rank-price"><div class="p-old">€17.99</div><div class="p-new">€12.99</div><div class="p-unit">one-time</div><div class="p-save">SAVE €5.00</div></div>
       </div>
       <div class="rank-perks">
         <div class="perks-label">Included Perks</div>
-        <div class="perk-inherit pi-p">✓ Everything in Legend</div>
+        <div class="perk-inherit pi-p">✓ Everything in Legend, Elite, Vip</div>
         <ul class="perk-list">
-          <li>/pv 4 — 4 private vaults</li>
-          <li>/fly — Fly freely at spawn</li>
-          <li>/kit custom — Exclusive custom kit</li>
+          <li>/pv 1,2,3,4 — 4 private vaults</li>
+          <li>/nick — Change your name to anything</li>
+          <li>/kit custom — Exclusive custom kit (preview in game)</li>
           <li>Unlimited home slots</li>
-          <li>🎨 Design your own prefix — any color, format &amp; word</li>
+          <li>🎨 Design your own unique rank — choose name color format anything</li>
           <li>Custom join message shown to server</li>
           <li>Custom quit message shown to server</li>
           <li>Top tab priority above all ranks</li>
@@ -613,7 +640,7 @@
       </div>
       <div class="pop-bar-wrap"><div class="pop-bar-label">Buyer popularity</div><div class="pop-bar-track"><div class="pop-bar-fill" style="width:74%"></div></div><div class="pop-pct">74% of buyers choose this</div></div>
       <div class="rank-footer">
-        <button class="buy-btn" data-name="Custom Rank" data-price="9.99" data-icon="👑" data-type="custom">Buy Custom — €9.99</button>
+        <button class="buy-btn" data-name="Custom Rank" data-price="12.99" data-icon="👑" data-type="custom">Buy Custom — €12.99</button>
       </div>
     </div>
 
@@ -654,29 +681,52 @@
   <div class="section-header">
     <div class="section-eyebrow">Loot Crates</div>
     <h2 class="section-title">Keys</h2>
-    <p class="section-desc">Open a key in-game for real, guaranteed loot delivered straight to your inventory. Not gambling — every key has fixed rewards.</p>
+    <p class="section-desc">Open a key at the crates. All rewards visible. You get to choose any reward you want. NO GAMBLING!</p>
   </div>
   <div class="keys-grid">
 
     <div class="key-card cookie-key">
-      <span class="key-ribbon kr-gold">🔥 ON SALE — WAS €2.99</span>
+      <span class="key-ribbon kr-gold">🔥 ON SALE — WAS €4.99</span>
       <div class="key-inner">
         <span class="key-icon">🍪</span>
         <div class="key-name">Cookie Key</div>
-        <div class="key-desc">A crate packed with custom items exclusive to CookiesGenZ. Perfect for players looking to get a head start.</div>
-        <div class="key-pricing"><div class="key-old">€2.99</div><div class="key-new">€1.99 <sub>/ key</sub></div><div class="key-save">SAVE €1.00</div></div>
-        <button class="key-btn" data-name="Cookie Key" data-price="1.99" data-icon="🍪" data-type="key">Get Cookie Key</button>
+        <div class="key-desc">A crate containing all of the custom items of the server including wands daggers and OP Armor!.</div>
+        <div style="margin:.9rem 0;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.04);border:1px dashed rgba(255,170,0,.3);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+          <img src="PASTEYOURLINKHERE" alt="Cookie Key rewards preview" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.parentNode.style.display='flex';" />
+          <span style="font-family:'Rajdhani',sans-serif;font-size:.75rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;position:absolute;">🎬 Showcase video coming soon</span>
+        </div>
+        <div class="key-pricing"><div class="key-old">€4.99</div><div class="key-new">€2.99 <sub>/key</sub></div><div class="key-save">SAVE €2.00</div></div>
+        <button class="key-btn" data-name="Cookie Key" data-price="2.99" data-icon="🍪" data-type="key">Get Cookie Key</button>
       </div>
     </div>
 
     <div class="key-card dragon-key">
-      <span class="key-ribbon kr-fire">🐉 ON SALE — WAS €4.99</span>
+      <span class="key-ribbon kr-fire">🐉 ON SALE — WAS €7.99</span>
       <div class="key-inner">
         <span class="key-icon">🐉</span>
         <div class="key-name">Dragon Key</div>
-        <div class="key-desc">Unleash the most overpowered gear on the entire server. For those who want to dominate from the very first day.</div>
-        <div class="key-pricing"><div class="key-old">€4.99</div><div class="key-new">€2.99 <sub>/ key</sub></div><div class="key-save">SAVE €2.00</div></div>
-        <button class="key-btn" data-name="Dragon Key" data-price="2.99" data-icon="🐉" data-type="key">Get Dragon Key</button>
+        <div class="key-desc">This crate contains the most overpowered loot on the server including a Sharpness 7 Sword!</div>
+        <div style="margin:.9rem 0;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.04);border:1px dashed rgba(230,48,0,.35);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;">
+          <img src="PASTEYOURLINKHERE" alt="Dragon Key rewards preview" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';" />
+          <span style="font-family:'Rajdhani',sans-serif;font-size:.75rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;position:absolute;">🎬 Showcase video coming soon</span>
+        </div>
+        <div class="key-pricing"><div class="key-old">€7.99</div><div class="key-new">€4.99 <sub>/key</sub></div><div class="key-save">SAVE €3.00</div></div>
+        <button class="key-btn" data-name="Dragon Key" data-price="4.99" data-icon="🐉" data-type="key">Get Dragon Key</button>
+      </div>
+    </div>
+
+    <div class="key-card heavenly-key">
+      <span class="key-ribbon kr-heavenly">&#10024; RAREST KEY &mdash; WAS &euro;29.99</span>
+      <div class="key-inner">
+        <span class="key-icon">&#127775;</span>
+        <div class="key-name">Heavenly Key</div>
+        <div class="key-desc">The most powerful crate on CookiesGenZ. <strong style="color:#e0c3fc">You pick 5 items</strong> from the full crate pool &mdash; preview all rewards in-game before choosing. Loot ranges from shulkers of armor to dragon items and cookie items</div>
+        <div style="margin:.9rem 0;border-radius:10px;overflow:hidden;background:rgba(180,120,255,.07);border:1px dashed rgba(180,120,255,.35);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;">
+          <img src="PASTEYOURLINKHERE" alt="Heavenly Key rewards preview" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';" />
+          <span style="font-family:'Rajdhani',sans-serif;font-size:.75rem;color:#c77dff;letter-spacing:.1em;text-transform:uppercase;position:absolute;">🎬 Showcase video coming soon</span>
+        </div>
+        <div class="key-pricing"><div class="key-old">&euro;29.99</div><div class="key-new">&euro;19.99 <sub>/key</sub></div><div class="key-save">SAVE &euro;10.00</div></div>
+        <button class="key-btn" data-name="Heavenly Key" data-price="19.99" data-icon="&#127775;" data-type="key">Get Heavenly Key</button>
       </div>
     </div>
 
@@ -690,7 +740,7 @@
   <div class="section-header">
     <div class="section-eyebrow">One-Time Items</div>
     <h2 class="section-title">Goods &amp; Items</h2>
-    <p class="section-desc">Powerful one-time purchases delivered straight to your in-game inventory. No rank required.</p>
+    <p class="section-desc">Items that can assist you in combat and in the server</p>
   </div>
   <div class="goods-grid">
 
@@ -700,7 +750,7 @@
       <div class="good-inner">
         <span class="good-icon">🛡️</span>
         <div class="good-name">Totem Pack</div>
-        <div class="good-desc">5 Totems of Undying delivered straight to your inventory. Never die again — stay in the fight no matter what.</div>
+        <div class="good-desc">5 Totems of Undying delivered straight to your inventory. Survive 5 fatal hits no problem (really rare items)</div>
         <div class="good-pricing"><div class="good-old">€1.99</div><div class="good-new">€0.99</div><div class="good-save">SAVE €1.00</div></div>
         <button class="good-btn gb-orange" data-name="Totem Pack" data-price="0.99" data-icon="🛡️" data-type="good">Buy Now — €0.99</button>
       </div>
@@ -720,13 +770,13 @@
 
     <!-- GOD APPLE STACK -->
     <div class="good-card">
-      <span class="good-ribbon gr-sale">🔥 ON SALE</span>
+      <span class="good-ribbon gr-sale">🔥 MOST OP</span>
       <div class="good-inner">
         <span class="good-icon">🍎</span>
         <div class="good-name">God Apple Stack</div>
-        <div class="good-desc">64 Enchanted Golden Apples (Notch Apples) dropped straight into your inventory. Absolute PvP dominance guaranteed.</div>
-        <div class="good-pricing"><div class="good-old">€8.99</div><div class="good-new">€5.99</div><div class="good-save">SAVE €3.00</div></div>
-        <button class="good-btn gb-gold" data-name="God Apple Stack" data-price="5.99" data-icon="🍎" data-type="good">Buy Now — €5.99</button>
+        <div class="good-desc">64 Enchanted Golden Apples straight into your hands. With just 10 you are unkillable but with 64 You are IMMORTAL</div>
+        <div class="good-pricing"><div class="good-old">€13.99</div><div class="good-new">€8.99</div><div class="good-save">SAVE €5.00</div></div>
+        <button class="good-btn gb-gold" data-name="God Apple Stack" data-price="8.99" data-icon="🍎" data-type="good">Buy Now — €8.99</button>
       </div>
     </div>
 
@@ -736,9 +786,9 @@
       <div class="good-inner">
         <span class="good-icon">⛏️</span>
         <div class="good-name">Dragon Pickaxe</div>
-        <div class="good-desc">A fully enchanted netherite pickaxe with Efficiency 50, Fortune 20, Unbreakable. Mine faster and gain 10x drops.</div>
-        <div class="good-pricing"><div class="good-old">€3.49</div><div class="good-new">€1.99</div><div class="good-save">SAVE €1.50</div></div>
-        <button class="good-btn gb-orange" data-name="Dragon Pickaxe" data-price="1.99" data-icon="⛏️" data-type="good">Buy Now — €1.99</button>
+        <div class="good-desc">A fully enchanted netherite pickaxe with Efficiency 50, Fortune 20, Unbreakable. Mine faster and gain 10x drops. Best seller for grinders</div>
+        <div class="good-pricing"><div class="good-old">€5.99</div><div class="good-new">€2.99</div><div class="good-save">SAVE €3.00</div></div>
+        <button class="good-btn gb-orange" data-name="Dragon Pickaxe" data-price="2.99" data-icon="⛏️" data-type="good">Buy Now — €2.99</button>
       </div>
     </div>
 
@@ -748,7 +798,7 @@
       <div class="good-inner">
         <span class="good-icon">🔐</span>
         <div class="good-name">Extra Vault Token</div>
-        <div class="good-desc">Permanently unlock 1 additional private vault (AxVaults). Stack as many as you need — your storage, your rules.</div>
+        <div class="good-desc">Permanently unlock 1 private vault able to access 54 more slots of storage (second ender chest)</div>
         <div class="good-pricing"><div class="good-old">€2.99</div><div class="good-new">€1.99</div><div class="good-save">SAVE €1.00</div></div>
         <button class="good-btn gb-green" data-name="Extra Vault Token" data-price="1.99" data-icon="🔐" data-type="good">Buy Now — €1.99</button>
       </div>
@@ -760,7 +810,7 @@
       <div class="good-inner">
         <span class="good-icon">⭐</span>
         <div class="good-name">Super Compressor</div>
-        <div class="good-desc">Compresses blocks into tokens while in offhand — also works as a normal compressor. The ultimate passive farming tool.</div>
+        <div class="good-desc">Compresses ores into blocks and blocks into tokens combined with the dragon pickaxe you can be the richest</div>
         <div class="good-pricing"><div class="good-old">€4.99</div><div class="good-new">€1.99</div><div class="good-save">SAVE €3.00</div></div>
         <button class="good-btn gb-gold" data-name="Super Compressor" data-price="1.99" data-icon="⭐" data-type="good">Buy Now — €1.99</button>
       </div>
@@ -820,7 +870,7 @@
           <div class="deal-items-label">What's Included</div>
           <ul>
             <li>Elite Rank (normally €8.99, on sale €5.99)</li>
-            <li>Dragon Key ×1 (normally €4.99, on sale €2.99)</li>
+            <li>Dragon Key ×1 (normally €7.99, on sale €4.99)</li>
           </ul>
         </div>
         <div class="deal-pricing"><div class="dp-old">€13.98</div><div class="dp-new">€7.99</div><div class="dp-save">SAVE €5.99</div></div>
@@ -837,8 +887,8 @@
         <div class="deal-items">
           <div class="deal-items-label">What's Included</div>
           <ul>
-            <li>Custom Rank (normally €12.00, on sale €9.99)</li>
-            <li>Dragon Key ×1 (normally €4.99, on sale €2.99)</li>
+            <li>Custom Rank (normally €17.99, on sale €12.99)</li>
+            <li>Dragon Key ×1 (normally €7.99, on sale €4.99)</li>
             <li>Cookie Key ×2 (normally €5.98, on sale €3.98)</li>
             <li>God Apple Stack (normally €8.99, on sale €5.99)</li>
           </ul>
@@ -865,6 +915,63 @@
     <!-- JS populates this -->
   </div>
 </div>
+
+
+<div class="divider"></div>
+
+<!-- LEADERBOARD -->
+<div class="history-section" id="leaderboard">
+  <div class="history-header">
+    <div class="history-eyebrow">🏆 Hall of Fame</div>
+    <h2 class="history-title">Top Supporters</h2>
+    <p class="history-desc">Our most dedicated community members — ranked by total spending</p>
+  </div>
+
+  <!-- #1 CROWN CARD -->
+  <div id="lb-first-card" style="margin-bottom:1.5rem;background:linear-gradient(135deg,rgba(255,170,0,.12),rgba(255,107,26,.08));border:2px solid rgba(255,170,0,.55);border-radius:18px;padding:1.6rem 2rem;display:flex;align-items:center;gap:1.4rem;position:relative;overflow:hidden;box-shadow:0 0 48px rgba(255,170,0,.13);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 15% 50%,rgba(255,170,0,.08),transparent);pointer-events:none;"></div>
+    <div style="font-size:3.5rem;line-height:1;flex-shrink:0;filter:drop-shadow(0 0 16px rgba(255,170,0,.7));animation:float 3s ease-in-out infinite;">👑</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ember-orange);margin-bottom:.2rem;">#1 · Biggest Donator</div>
+      <div style="font-family:'Cinzel Decorative',cursive;font-size:1.6rem;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--ember-orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.2rem;">Catking1957</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:.82rem;color:var(--muted);">18 purchases · Server legend</div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-family:'Cinzel Decorative',cursive;font-size:2rem;font-weight:700;color:var(--gold);line-height:1;filter:drop-shadow(0 0 10px rgba(255,170,0,.4));">€30.84</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.2rem;">Total Spent</div>
+      <div style="display:inline-block;margin-top:.5rem;background:linear-gradient(135deg,var(--gold),var(--ember-orange));color:var(--dark);font-family:'Rajdhani',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;padding:.2rem .55rem;border-radius:4px;">🔥 TOP SUPPORTER</div>
+    </div>
+  </div>
+
+  <!-- RANKS 2–10 -->
+  <div style="display:flex;flex-direction:column;gap:.55rem;" id="lbFeed"></div>
+</div>
+
+<script>
+(function(){
+  var lb=[
+    {rank:2,icon:'👑',name:'BLaze_Gaming_123',spent:'€15.96',purchases:4,color:'#c77dff'},
+    {rank:3,icon:'👑',name:'Deathlyk',spent:'€23.44',purchases:7,color:'#e63000'},
+  ];
+  // sort by spent descending
+  lb.sort(function(a,b){return parseFloat(b.spent.replace('€',''))-parseFloat(a.spent.replace('€',''));});
+  lb.forEach(function(p,i){p.rank=i+2;});
+  var feed=document.getElementById('lbFeed');
+  lb.forEach(function(p){
+    var medals=['','','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
+    var medal=medals[p.rank]||('#'+p.rank);
+    var item=document.createElement('div');
+    item.style.cssText='display:flex;align-items:center;gap:.85rem;background:var(--dark-card);border:1px solid var(--dark-border);border-radius:10px;padding:.7rem 1rem;';
+    item.innerHTML='<div style="font-family:Cinzel Decorative,cursive;font-size:1.1rem;flex-shrink:0;width:32px;text-align:center;">'+medal+'</div>'
+      +'<div style="flex:1;min-width:0;">'
+        +'<div style="font-family:Rajdhani,sans-serif;font-size:.9rem;font-weight:700;color:var(--cream);">'+p.name+'</div>'
+        +'<div style="font-family:Rajdhani,sans-serif;font-size:.72rem;color:var(--muted);">'+p.purchases+' purchase'+(p.purchases!==1?'s':'')+'</div>'
+      +'</div>'
+      +'<div style="font-family:Cinzel Decorative,cursive;font-size:1.15rem;font-weight:700;color:'+p.color+';flex-shrink:0;">'+p.spent+'</div>';
+    feed.appendChild(item);
+  });
+})();
+</script>
 
 <div class="divider"></div>
 
@@ -893,9 +1000,48 @@
 </div>
 
 <!-- FOOTER -->
+
+<div class="divider"></div>
+
+<!-- DONATION -->
+<section id="donate" style="position:relative;z-index:1;max-width:860px;margin:0 auto;padding:4rem 2rem;">
+  <div class="donation-card">
+    <span class="donation-icon">&#10084;&#65039;</span>
+    <div class="donation-title">Support the Server</div>
+    <p class="donation-desc">Love playing on CookiesGenZ? Help keep the server alive and growing. Every donation goes directly to hosting, development and new features. No rewards attached &mdash; just pure support.</p>
+    <div class="donation-form">
+      <div class="donation-row">
+        <div class="donation-input-wrap">
+          <label class="donation-label" for="donorName">Your Name / IGN</label>
+          <input type="text" id="donorName" class="donation-input" placeholder="e.g. Steve123" maxlength="32" autocomplete="off"/>
+        </div>
+        <div class="donation-input-wrap">
+          <label class="donation-label" for="donorAmount">Amount (&euro;)</label>
+          <input type="number" id="donorAmount" class="donation-input" placeholder="5.00" min="1" max="500" step="0.50" style="font-family:Cinzel Decorative,cursive;font-size:1.1rem;"/>
+        </div>
+      </div>
+      <div class="donation-slider-wrap">
+        <label class="donation-label">Or drag to pick amount</label>
+        <div class="donation-amount-display" id="donationDisplay">&euro;5.00</div>
+        <input type="range" id="donorSlider" class="donation-slider" min="1" max="100" step="1" value="5"/>
+        <div class="donation-presets">
+          <button class="donation-preset" data-val="1">&euro;1</button>
+          <button class="donation-preset active" data-val="5">&euro;5</button>
+          <button class="donation-preset" data-val="10">&euro;10</button>
+          <button class="donation-preset" data-val="20">&euro;20</button>
+          <button class="donation-preset" data-val="50">&euro;50</button>
+        </div>
+      </div>
+      <button class="donation-btn" id="donationPayBtn">&#10084; Donate Now</button>
+      <div id="donationPayContainer" style="display:none;width:100%"></div>
+      <div class="donation-note">&#128274; Secure PayPal checkout &middot; Card or PayPal balance accepted &middot; No account needed</div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <p>
-    🍪 <strong>CookiesGenZ</strong> · Minecraft Network<br/>
+    🍪 <strong>CookiesGenZ</strong> · Minecraft Server<br/>
     Server: <a href="#">cookiesgenz.minehut.gg</a> · Discord: <a href="https://discord.gg/dgaPbMf7Kp" target="_blank">discord.gg/dgaPbMf7Kp</a><br/>
     <small style="color:#5a4020">All payments are securely processed via PayPal. Purchases are final. Not affiliated with Mojang Studios.</small>
   </p>
@@ -931,6 +1077,16 @@
         </div>
         <div class="qty-deal-tag" id="qtyDealTag"></div>
       </div>
+      <!-- HEAVENLY KEY HOW IT WORKS -->
+      <div id="heavenlyInfo" style="display:none;background:rgba(180,120,255,.07);border:1px solid rgba(180,120,255,.28);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.9rem;">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c77dff;margin-bottom:.55rem;">✨ How the Heavenly Key Works</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:.82rem;color:#d4b8ff;line-height:1.6;">
+          <div style="display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.35rem;"><span style="color:#c77dff;font-size:1rem;">①</span> Open the crate in-game at spawn</div>
+          <div style="display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.35rem;"><span style="color:#c77dff;font-size:1rem;">②</span> Browse the <strong style="color:#e0c3fc">full loot table</strong> — all items visible</div>
+          <div style="display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.35rem;"><span style="color:#c77dff;font-size:1rem;">③</span> Hand-pick any <strong style="color:#e0c3fc">5 items</strong> you want</div>
+          <div style="display:flex;align-items:flex-start;gap:.6rem;"><span style="color:#c77dff;font-size:1rem;">④</span> <span><strong style="color:#e0c3fc">No randomness. No gambling.</strong> Pure power.</span></div>
+        </div>
+      </div>
       <div class="form-group">
         <label class="form-label" for="usernameInput">Your Minecraft Username</label>
         <input type="text" id="usernameInput" class="form-input" placeholder="e.g. Steve123" maxlength="16" autocomplete="off"/>
@@ -938,7 +1094,7 @@
       </div>
       <div class="form-group">
         <label class="form-label" for="referralInput">🎁 Referral Code <span style="color:var(--muted);font-size:.7rem;font-weight:400;letter-spacing:0">(optional — get 10% off)</span></label>
-        <input type="text" id="referralInput" class="form-input" placeholder="e.g. KAGIAN10" maxlength="20" autocomplete="off" style="text-transform:uppercase"/>
+        <input type="text" id="referralInput" class="form-input" placeholder="Only if you have one" maxlength="20" autocomplete="off" style="text-transform:uppercase"/>
         <div class="form-error" id="referralError" style="color:#5bf577;display:none">✓ Referral code applied! 10% discount added.</div>
       </div>
       <div class="custom-note" id="customNote">
@@ -999,6 +1155,7 @@ function openModal(name,price,icon,type){
   document.getElementById('modalSuccess').style.display='none';
   var showNote=(type==='custom'||name==='Ultimate Bundle');
   document.getElementById('customNote').style.display=showNote?'block':'none';
+  document.getElementById('heavenlyInfo').style.display=(name==='Heavenly Key')?'block':'none';
   document.getElementById('modalOverlay').classList.add('active');
   renderPayPal(price);
 }
@@ -1011,11 +1168,9 @@ document.getElementById('modalOverlay').addEventListener('click',function(e){if(
 document.getElementById('modalCloseBtn').addEventListener('click',closeModal);
 
 // WIRE ALL BUTTONS
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('[data-name][data-price]').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      openModal(this.dataset.name,this.dataset.price,this.dataset.icon,this.dataset.type);
-    });
+document.querySelectorAll('[data-name][data-price]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    openModal(this.dataset.name,this.dataset.price,this.dataset.icon,this.dataset.type);
   });
 });
 
@@ -1047,6 +1202,7 @@ function renderPayPal(price){
         refEl.style.color='var(--fire-red)';refEl.style.display='block';
       } else{refEl.style.display='none';}
       return actions.order.create({
+        application_context:{shipping_preference:'NO_SHIPPING'},
         purchase_units:[{
           amount:{value:finalPrice.toFixed(2),currency_code:'EUR'},
           description:'CookiesGenZ - '+currentProduct.name+' for '+u+(ref&&validCodes.indexOf(ref)>-1?' [ref:'+ref+']':''),
@@ -1151,28 +1307,63 @@ document.getElementById('giftCloseBtn').addEventListener('click',function(){
   tickRcd();setInterval(tickRcd,1000);
 })();
 
-// PURCHASE HISTORY FEED
+// PURCHASE HISTORY FEED — real data (oldest to newest, displayed newest first)
 var historyData=[
-  {icon:'👑',name:'kagian',product:'Custom Rank',time:'2m ago'},
-  {icon:'💎',name:'catking1957',product:'Elite Rank',time:'8m ago'},
-  {icon:'🐉',name:'artificialmini',product:'Dragon Slayer Bundle',time:'15m ago'},
-  {icon:'🍪',name:'cookieaterr',product:'Cookie Key x3',time:'23m ago'},
-  {icon:'🍎',name:'vincelotts',product:'God Apple Stack',time:'31m ago'},
-  {icon:'👑',name:'catking1957',product:'Ultimate Bundle',time:'44m ago'},
-  {icon:'🔮',name:'artificialmini',product:'Legend Rank',time:'1h ago'},
-  {icon:'🛡️',name:'kagian',product:'Totem Pack',time:'1h ago'},
-  {icon:'⛏️',name:'vincelotts',product:'Dragon Pickaxe',time:'2h ago'},
-  {icon:'🐉',name:'cookieaterr',product:'Dragon Key x3',time:'2h ago'},
-  {icon:'💚',name:'catking1957',product:'Starter Bundle',time:'3h ago'},
-  {icon:'🔐',name:'artificialmini',product:'Extra Vault Token',time:'4h ago'},
+  {icon:'🍎',name:'Catking1957',product:'64 EGaps'},
+  {icon:'🛡️',name:'Catking1957',product:'Totem Pack'},
+  {icon:'🛡️',name:'Catking1957',product:'Totem Pack'},
+  {icon:'🍎',name:'cookieaterr',product:'64 EGaps'},
+  {icon:'💚',name:'Rust97684',product:'VIP Rank'},
+  {icon:'⛏️',name:'Rust97684',product:'Dragon Pickaxe'},
+  {icon:'✍️',name:'Catking1957',product:'Lore Tokens'},
+  {icon:'🛡️',name:'THE_DARK_KILLER1',product:'Totem Pack'},
+  {icon:'🍎',name:'flamefrags1986',product:'64 EGaps'},
+  {icon:'🛡️',name:'flamefrags1986',product:'Totem Pack'},
+  {icon:'🛡️',name:'flamefrags1986',product:'Totem Pack'},
+  {icon:'🐉',name:'flamefrags1986',product:'Dragon Key'},
+  {icon:'✍️',name:'Catking1957',product:'Lore Tokens'},
+  {icon:'🛡️',name:'Catking1957',product:'Totem Pack'},
+  {icon:'👑',name:'MelonStar23',product:'Custom Rank'},
+  {icon:'⛏️',name:'wzlv',product:'Dragon Pickaxe'},
+  {icon:'🛡️',name:'Catking1957',product:'Totem Pack'},
+  {icon:'⭐',name:'Deathlyk',product:'Super Compressor'},
+  {icon:'🛡️',name:'Deathlyk',product:'Totem Pack'},
+  {icon:'⛏️',name:'Deathlyk',product:'Dragon Pickaxe'},
+  {icon:'🍎',name:'Deathlyk',product:'64 EGaps'},
+  {icon:'🔐',name:'Deathlyk',product:'Extra Vault Token'},
+  {icon:'✍️',name:'DeathlyK',product:'Lore Token'},
+  {icon:'👑',name:'Deathlyk',product:'Custom Rank'},
+  {icon:'🛡️',name:'Catking1957',product:'Totem Pack'},
+  {icon:'✍️',name:'Catking1957',product:'Lore Tokens'},
+  {icon:'🛡️',name:'netherite_night3',product:'Totem Pack'},
+  {icon:'🔐',name:'Catking1957',product:'Vault Token'},
+  {icon:'🛡️',name:'Catking1957',product:'Totem Pack'},
+  {icon:'⭐',name:'Catking1957',product:'Super Compressor'},
+  {icon:'🛡️',name:'Catking1957',product:'Totem Pack'},
+  {icon:'🛡️',name:'Catking1957',product:'Totem Pack'},
+  {icon:'⛏️',name:'catking1957',product:'Dragon Pickaxe'},
+  {icon:'⭐',name:'catking1957',product:'Super Compressor'},
+  {icon:'⭐',name:'Catking1957',product:'Super Compressor'},
+  {icon:'⭐',name:'Catking1957',product:'Super Compressor'},
+  {icon:'🛡️',name:'kagian',product:'Totem Pack'},
+  {icon:'✍️',name:'kagian',product:'Lore Tokens'},
+  {icon:'👑',name:'BLaze_Gaming_123',product:'Custom Rank'},
+  {icon:'💚🍪',name:'Catking1957',product:'Starter Bundle'},
+  {icon:'⭐',name:'netherite_night4',product:'Super Compressor'},
+  {icon:'🐉',name:'cookieaterr',product:'Dragon Key'},
+  {icon:'💚🍪',name:'Gilad1702',product:'Starter Bundle'},
+  {icon:'⛏️',name:'BLaze_Gaming_123',product:'Dragon Pickaxe'},
+  {icon:'⛏️',name:'BLaze_Gaming_123',product:'Dragon Pickaxe'},
+  {icon:'⭐',name:'BLaze_Gaming_123',product:'Super Compressor'},
 ];
 
 (function(){
   var feed=document.getElementById('historyFeed');
   if(!feed)return;
-  // Render initial history
-  historyData.forEach(function(d){
-    feed.appendChild(makeHistoryItem(d.icon,d.name,d.product,d.time));
+  var reversed=historyData.slice().reverse();
+  var timeLabels=['Most recent','2 days ago','3 days ago','4 days ago','5 days ago','6 days ago','1 week ago','1 week ago','2 weeks ago','2 weeks ago','2 weeks ago','3 weeks ago','3 weeks ago','3 weeks ago','1 month ago','1 month ago','1 month ago','1 month ago','1 month ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','4 months ago','4 months ago','4 months ago','4 months ago','4 months ago','4 months ago','4 months ago','4 months ago'];
+  reversed.forEach(function(d,i){
+    feed.appendChild(makeHistoryItem(d.icon,d.name,d.product,timeLabels[i]||''));
   });
 })();
 
@@ -1182,45 +1373,6 @@ function makeHistoryItem(icon,name,product,time){
   item.innerHTML='<div class="history-icon">'+icon+'</div><div class="history-info"><div class="history-name">'+name+'</div><div class="history-product">bought '+product+'</div></div><div class="history-time">'+time+'</div><div class="history-badge">✔ Verified</div>';
   return item;
 }
-
-function addHistoryItem(icon,name,product){
-  var feed=document.getElementById('historyFeed');
-  if(!feed)return;
-  var item=makeHistoryItem(icon,name,product,'just now');
-  feed.insertBefore(item,feed.firstChild);
-  // Keep max 14 items
-  while(feed.children.length>14)feed.removeChild(feed.lastChild);
-}
-
-// LIVE PURCHASE TOAST — slowed way down (60-120s intervals)
-var toastData=[
-  {icon:'💎',msg:'catking1957 just bought Elite Rank'},
-  {icon:'👑',msg:'kagian just bought Custom Rank'},
-  {icon:'🐉',msg:'artificialmini just bought Dragon Slayer Bundle'},
-  {icon:'🍪',msg:'cookieaterr just bought Cookie Key x3'},
-  {icon:'🍎',msg:'vincelotts just bought God Apple Stack'},
-  {icon:'👑',msg:'catking1957 just bought Ultimate Bundle'},
-  {icon:'🔮',msg:'artificialmini just bought Legend Rank'},
-  {icon:'🛡️',msg:'kagian just bought Totem Pack'},
-  {icon:'⛏️',msg:'vincelotts just bought Dragon Pickaxe'},
-  {icon:'🐉',msg:'cookieaterr just bought Dragon Key x3'},
-  {icon:'💚',msg:'catking1957 just bought Starter Bundle'},
-  {icon:'🔐',msg:'artificialmini just bought Extra Vault Token'},
-];
-var toastIdx=0;
-function showToast(){
-  var t=document.getElementById('toast');
-  var d=toastData[toastIdx%toastData.length];
-  toastIdx++;
-  document.getElementById('toastIcon').textContent=d.icon;
-  document.getElementById('toastMsg').textContent=d.msg;
-  t.classList.add('show');
-  setTimeout(function(){t.classList.remove('show');},4200);
-  // Also push to history feed
-  var namePart=d.msg.split(' just bought ');
-  if(namePart.length===2)addHistoryItem(d.icon,namePart[0],namePart[1]);
-}
-setTimeout(function(){showToast();function schedNext(){setTimeout(function(){showToast();schedNext();},Math.random()*60000+60000);}schedNext();},15000);
 
 // COUNTDOWN TIMER
 (function(){
@@ -1302,7 +1454,7 @@ openModal=function(name,price,icon,type){
     // 1: rank perks highlight
     {embeds:[{
       title:'👑 What Do You Get With Custom Rank?',
-      description:'The **Custom Rank** is our most popular package — and for good reason.\n\n✅ /fly at spawn\n✅ 4 Private Vaults\n✅ Unlimited homes\n✅ /repair all\n✅ Your **own prefix** in any color & format\n✅ Custom join & quit messages\n✅ Everything from VIP, Elite & Legend\n​\nAll for just **€9.99** (was €12.00)',
+      description:'The **Custom Rank** is our most popular package — and for good reason.\n\n✅ /fly at spawn\n✅ 4 Private Vaults\n✅ Unlimited homes\n✅ /repair all\n✅ Your **own prefix** in any color & format\n✅ Custom join & quit messages\n✅ Everything from VIP, Elite & Legend\n​\nAll for just **€12.99** (was €17.99)',
       color:0xFFAA00,
       footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
     }]},
@@ -1316,14 +1468,14 @@ openModal=function(name,price,icon,type){
     // 3: goods spotlight
     {embeds:[{
       title:'🍎 God Apple Stack — PvP Dominance for €5.99',
-      description:'**64 Enchanted Golden Apples** dropped straight into your inventory.\n\nIf you’ve ever been wiped in PvP, you know why these matter. Stop losing fights — stock up now.\n\nWas €8.99 — now **€5.99** for a limited time.',
+      description:'**64 Enchanted Golden Apples** dropped straight into your inventory.\n\nIf you’ve ever been wiped in PvP, you know why these matter. Stop losing fights — stock up now.\n\nWas €13.99 — now **€8.99** for a limited time.',
       color:0xFF4A1A,
       footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
     }]},
     // 4: keys spotlight
     {embeds:[{
       title:'🐉 Dragon Key — The Most Overpowered Loot on the Server',
-      description:'The **Dragon Key** crate contains the most powerful gear on CookiesGenZ.\n\nNot gambling — every key delivers real, guaranteed loot.\n\nOn sale now: ~~€4.99~~ → **€2.99**\n\nBuy 3 for €7.99 and save even more.',
+      description:'The **Dragon Key** crate contains the most powerful gear on CookiesGenZ.\n\nNot gambling — every key delivers real, guaranteed loot.\n\nOn sale now: ~~€7.99~~ → **€4.99**\n\nBuy 3 for €12.99 and save even more.',
       color:0xE63000,
       footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
     }]},
@@ -1351,7 +1503,7 @@ openModal=function(name,price,icon,type){
     // 8: VIP spotlight
     {embeds:[{
       title:'💚 VIP Rank — The Best €2.99 You’ll Spend',
-      description:'For less than a coffee you get:\n\n✅ /warp mines — exclusive OP private mines\n✅ /ec, /craft, /trash anywhere\n✅ 6 home slots\n✅ /kit vip — full Netherite armor\n✅ VIP tab priority & prefix\n\nWas €4.99 — now **€2.99**. One-time purchase, yours forever.',
+      description:'For less than a coffee you get:\n\n✅ /warp mines — exclusive OP private mines\n✅ /ec, /craft, /trash anywhere\n✅ 6 home slots\n✅ /kit vip — full Netherite armor\n✅ VIP tab priority & prefix\n\nWas €7.99 — now **€4.99**. One-time purchase, yours forever.',
       color:0x5BF577,
       footer:{text:'CookiesGenZ Store · cookiesgenz.minehut.gg'}
     }]},
@@ -1383,6 +1535,65 @@ openModal=function(name,price,icon,type){
   }, 10000);
 })();
 
+
+// DONATION LOGIC
+(function(){
+  var slider = document.getElementById('donorSlider');
+  var display = document.getElementById('donationDisplay');
+  var amtInput = document.getElementById('donorAmount');
+  var presets = document.querySelectorAll('.donation-preset');
+  var donateBtn = document.getElementById('donationPayBtn');
+
+  function setAmount(val){
+    val = Math.max(1, Math.min(500, parseFloat(val)||1));
+    slider.value = Math.min(val, 100);
+    display.textContent = '€' + val.toFixed(2);
+    amtInput.value = val.toFixed(2);
+    presets.forEach(function(p){ p.classList.toggle('active', parseFloat(p.dataset.val)===val); });
+  }
+
+  slider.addEventListener('input', function(){ setAmount(this.value); });
+  amtInput.addEventListener('input', function(){ setAmount(this.value); });
+  presets.forEach(function(p){
+    p.addEventListener('click', function(){ setAmount(this.dataset.val); });
+  });
+
+  donateBtn.addEventListener('click', function(){
+    var name = document.getElementById('donorName').value.trim() || 'Anonymous';
+    var amt = parseFloat(amtInput.value||5);
+    if(isNaN(amt)||amt<1){ amtInput.focus(); return; }
+    amt = Math.round(amt*100)/100;
+    paypal.Buttons({
+      style:{layout:'vertical',color:'blue',shape:'rect',label:'donate',height:45},
+      createOrder: function(data,actions){
+        return actions.order.create({
+          application_context:{shipping_preference:'NO_SHIPPING'},
+          purchase_units:[{
+            amount:{value:amt.toFixed(2),currency_code:'EUR'},
+            description:'Donation from ' + name + ' to CookiesGenZ'
+          }]
+        });
+      },
+      onApprove: function(data,actions){
+        return actions.order.capture().then(function(){
+          // send webhook
+          fetch('https://discord.com/api/webhooks/1498734755481522236/vzePTH9CMRmwtH89yHGj5bygcyOj5BlqdWA9-iWRcPHS6IxlOnfaD5swuZZvS1UldqzO',{
+            method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({embeds:[{title:'❤️ Donation Received!',description:'**'+name+'** donated **€'+amt.toFixed(2)+'**\n\nThank you for supporting CookiesGenZ!',color:0x2ECC40}]})
+          }).catch(function(){});
+          donateBtn.textContent = '❤️ Thank you, '+name+'!';
+          donateBtn.style.background = 'linear-gradient(135deg,#1a8a26,#2ecc40)';
+        });
+      }
+    }).render('#donationPayContainer');
+    donateBtn.style.display='none';
+    var c=document.getElementById('donationPayContainer');
+    if(c)c.style.display='block';
+  });
+
+  setAmount(5);
+})();
+
 // SCROLL ANIMATIONS
 var obs=new IntersectionObserver(function(entries){
   entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
@@ -1391,11 +1602,7 @@ document.querySelectorAll('.rank-card,.key-card,.why-card,.deal-card,.good-card'
   el.classList.add('anim-hidden');obs.observe(el);
 });
 </script>
-<!-- TOAST -->
-<div class="toast" id="toast">
-  <div class="toast-icon" id="toastIcon">🍪</div>
-  <div class="toast-text"><strong class="toast-name" id="toastMsg">Someone just bought something</strong><div class="toast-tag">✔ Verified Purchase</div></div>
-</div>
+
 
 </body>
 </html>
