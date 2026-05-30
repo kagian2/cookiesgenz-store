@@ -933,25 +933,27 @@
     <div style="font-size:3.5rem;line-height:1;flex-shrink:0;filter:drop-shadow(0 0 16px rgba(255,170,0,.7));animation:float 3s ease-in-out infinite;">👑</div>
     <div style="flex:1;min-width:0;">
       <div style="font-family:'Rajdhani',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ember-orange);margin-bottom:.2rem;">#1 · Biggest Donator</div>
-      <div style="font-family:'Cinzel Decorative',cursive;font-size:1.6rem;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--ember-orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.2rem;">Catking1957</div>
-      <div style="font-family:'Rajdhani',sans-serif;font-size:.82rem;color:var(--muted);">18 purchases · Server legend</div>
+      <div style="font-family:'Cinzel Decorative',cursive;font-size:1.6rem;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--ember-orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.2rem;">masonsfishy</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:.82rem;color:var(--muted);">3 purchases · Server legend</div>
     </div>
     <div style="text-align:right;flex-shrink:0;">
-      <div style="font-family:'Cinzel Decorative',cursive;font-size:2rem;font-weight:700;color:var(--gold);line-height:1;filter:drop-shadow(0 0 10px rgba(255,170,0,.4));">€30.84</div>
+      <div style="font-family:'Cinzel Decorative',cursive;font-size:2rem;font-weight:700;color:var(--gold);line-height:1;filter:drop-shadow(0 0 10px rgba(255,170,0,.4));">€37.97</div>
       <div style="font-family:'Rajdhani',sans-serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.2rem;">Total Spent</div>
       <div style="display:inline-block;margin-top:.5rem;background:linear-gradient(135deg,var(--gold),var(--ember-orange));color:var(--dark);font-family:'Rajdhani',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;padding:.2rem .55rem;border-radius:4px;">🔥 TOP SUPPORTER</div>
     </div>
   </div>
 
-  <!-- RANKS 2–10 -->
+  <!-- RANKS 2–5 -->
   <div style="display:flex;flex-direction:column;gap:.55rem;" id="lbFeed"></div>
 </div>
 
 <script>
 (function(){
   var lb=[
-    {rank:2,icon:'👑',name:'BLaze_Gaming_123',spent:'€15.96',purchases:4,color:'#c77dff'},
-    {rank:3,icon:'👑',name:'Deathlyk',spent:'€23.44',purchases:7,color:'#e63000'},
+    {rank:2,name:'Catking1957',spent:'€37.81',purchases:21,color:'#ffaa00'},
+    {rank:3,name:'vvgf',spent:'€33.96',purchases:4,color:'#c77dff'},
+    {rank:4,name:'ProdigyMiner',spent:'€32.98',purchases:2,color:'#00cfff'},
+    {rank:5,name:'flamefrags1986',spent:'€30.95',purchases:5,color:'#5bf577'},
   ];
   // sort by spent descending
   lb.sort(function(a,b){return parseFloat(b.spent.replace('€',''))-parseFloat(a.spent.replace('€',''));});
@@ -1227,7 +1229,7 @@ function renderPayPal(price){
 
 // DISCORD WEBHOOK
 function sendWebhook(u,product,price,icon,orderId){
-  var W='https://discord.com/api/webhooks/1498734755481522236/vzePTH9CMRmwtH89yHGj5bygcyOj5BlqdWA9-iWRcPHS6IxlOnfaD5swuZZvS1UldqzO';
+  var W='/api/webhook-advertising';
   var body={embeds:[{
     title:icon+' New Purchase — '+product,
     color:0xFF6B1A,
@@ -1355,13 +1357,39 @@ var historyData=[
   {icon:'⛏️',name:'BLaze_Gaming_123',product:'Dragon Pickaxe'},
   {icon:'⛏️',name:'BLaze_Gaming_123',product:'Dragon Pickaxe'},
   {icon:'⭐',name:'BLaze_Gaming_123',product:'Super Compressor'},
+  {icon:'⛏️',name:'boldstarfish111',product:'Dragon Pickaxe'},
+  {icon:'👑',name:'Ch3z_Pebble',product:'Custom Rank'},
+  {icon:'⛏️',name:'Ch3z_Pebble',product:'Dragon Pickaxe'},
+  {icon:'⭐',name:'Ch3z_Pebble',product:'Super Compressor'},
+  {icon:'🛡️',name:'boldstarfish111',product:'Totem Pack'},
+  {icon:'⭐',name:'boldstarfish111',product:'Super Compressor'},
+  {icon:'⭐',name:'Ch3z_Pebble',product:'Super Compressor'},
+  {icon:'🐉',name:'Catking1957',product:'Dragon Key'},
+  {icon:'👑',name:'boldstarfish111',product:'Custom Rank'},
+  {icon:'✨',name:'flamefrags1986',product:'Heavenly Key'},
+  {icon:'✨',name:'masonsfishy',product:'Heavenly Key'},
+  {icon:'✨',name:'ProdigyMiner',product:'Heavenly Key'},
+  {icon:'🛡️',name:'netherite_night3',product:'Totem Pack'},
+  {icon:'🛡️',name:'netherite_night3',product:'Totem Pack'},
+  {icon:'✨',name:'vvgf',product:'Heavenly Key'},
+  {icon:'⛏️',name:'vvgf',product:'Dragon Pickaxe'},
+  {icon:'🍎',name:'vvgf',product:'64 EGaps'},
+  {icon:'⭐',name:'vvgf',product:'Super Compressor'},
+  {icon:'⭐',name:'Catking1957',product:'Super Compressor'},
+  {icon:'👑',name:'masonsfishy',product:'Custom Rank'},
+  {icon:'🐉',name:'Masonsfishy',product:'Dragon Key'},
+  {icon:'⭐',name:'Pigeonisbird',product:'Super Compressor'},
+  {icon:'⛏️',name:'pigeonisbird',product:'Dragon Pickaxe'},
+  {icon:'👑',name:'ProdigyMiner',product:'Custom Rank'},
+  {icon:'🛡️',name:'Catking1957',product:'Totem Pack'},
+  {icon:'👑',name:'Pigeonisbird',product:'Custom Rank'},
 ];
 
 (function(){
   var feed=document.getElementById('historyFeed');
   if(!feed)return;
   var reversed=historyData.slice().reverse();
-  var timeLabels=['Most recent','2 days ago','3 days ago','4 days ago','5 days ago','6 days ago','1 week ago','1 week ago','2 weeks ago','2 weeks ago','2 weeks ago','3 weeks ago','3 weeks ago','3 weeks ago','1 month ago','1 month ago','1 month ago','1 month ago','1 month ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','4 months ago','4 months ago','4 months ago','4 months ago','4 months ago','4 months ago','4 months ago','4 months ago'];
+  var timeLabels=['Most recent','1 day ago','2 days ago','3 days ago','4 days ago','5 days ago','6 days ago','1 week ago','1 week ago','1 week ago','2 weeks ago','2 weeks ago','2 weeks ago','2 weeks ago','3 weeks ago','3 weeks ago','3 weeks ago','1 month ago','1 month ago','1 month ago','1 month ago','1 month ago','1 month ago','1 month ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','2 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','3 months ago','4 months ago','4 months ago','4 months ago','4 months ago','4 months ago','4 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago','5 months ago'];
   reversed.forEach(function(d,i){
     feed.appendChild(makeHistoryItem(d.icon,d.name,d.product,timeLabels[i]||''));
   });
@@ -1401,7 +1429,7 @@ var upsells={
 };
 var keyQtyPrices={
   'Cookie Key':[{qty:1,price:'1.99',label:''},{qty:3,price:'4.99',label:'Save €0.98 — Bundle deal!'},{qty:5,price:'7.99',label:'Save €1.96 — Best value!'}],
-  'Dragon Key':[{qty:1,price:'2.99',label:''},{qty:3,price:'7.99',label:'Save €0.98 — Bundle deal!'},{qty:5,price:'12.99',label:'Save €1.96 — Best value!'}],
+  'Dragon Key':[{qty:1,price:'4.99',label:''},{qty:3,price:'7.99',label:'Save €0.98 — Bundle deal!'},{qty:5,price:'12.99',label:'Save €1.96 — Best value!'}],
 };
 var currentQty=1;
 var keyQtyLevels=[];
@@ -1439,7 +1467,7 @@ openModal=function(name,price,icon,type){
 
 // ── DISCORD STORE CHANNEL AUTO-MESSAGES ──
 (function(){
-  var STORE_WEBHOOK='https://discord.com/api/webhooks/1499857824077840637/8yeF1ToYy59z48UiZYPke4-5gPt0KlbK5xNmU47-3pLW4gKe7yezZPSR7o9RAGK1BZFp';
+  var STORE_WEBHOOK='/api/webhook-payment';
 
   var messages=[
     // 0: deals reminder
@@ -1577,10 +1605,9 @@ openModal=function(name,price,icon,type){
       onApprove: function(data,actions){
         return actions.order.capture().then(function(){
           // send webhook
-          fetch('https://discord.com/api/webhooks/1498734755481522236/vzePTH9CMRmwtH89yHGj5bygcyOj5BlqdWA9-iWRcPHS6IxlOnfaD5swuZZvS1UldqzO',{
-            method:'POST',headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({embeds:[{title:'❤️ Donation Received!',description:'**'+name+'** donated **€'+amt.toFixed(2)+'**\n\nThank you for supporting CookiesGenZ!',color:0x2ECC40}]})
-          }).catch(function(){});
+          var donatePayload=JSON.stringify({embeds:[{title:'❤️ Donation Received!',description:'**'+name+'** donated **€'+amt.toFixed(2)+'**\n\nThank you for supporting CookiesGenZ!',color:0x2ECC40}]});
+          fetch('/api/webhook-advertising',{method:'POST',headers:{'Content-Type':'application/json'},body:donatePayload}).catch(function(){});
+          fetch('/api/webhook-payment',{method:'POST',headers:{'Content-Type':'application/json'},body:donatePayload}).catch(function(){});
           donateBtn.textContent = '❤️ Thank you, '+name+'!';
           donateBtn.style.background = 'linear-gradient(135deg,#1a8a26,#2ecc40)';
         });
