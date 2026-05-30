@@ -1407,7 +1407,36 @@ var historyData=[
 function makeHistoryItem(icon,name,product,time){
   var item=document.createElement('div');
   item.className='history-item';
-  item.innerHTML='<div class="history-icon">'+icon+'</div><div class="history-info"><div class="history-name">'+name+'</div><div class="history-product">bought '+product+'</div></div><div class="history-time">'+time+'</div><div class="history-badge">✔ Verified</div>';
+
+  var iconEl=document.createElement('div');
+  iconEl.className='history-icon';
+  iconEl.textContent=icon;
+
+  var infoEl=document.createElement('div');
+  infoEl.className='history-info';
+
+  var nameEl=document.createElement('div');
+  nameEl.className='history-name';
+  nameEl.textContent=name;
+
+  var productEl=document.createElement('div');
+  productEl.className='history-product';
+  productEl.textContent='bought '+product;
+
+  var timeEl=document.createElement('div');
+  timeEl.className='history-time';
+  timeEl.textContent=time;
+
+  var badgeEl=document.createElement('div');
+  badgeEl.className='history-badge';
+  badgeEl.textContent='✔ Verified';
+
+  infoEl.appendChild(nameEl);
+  infoEl.appendChild(productEl);
+  item.appendChild(iconEl);
+  item.appendChild(infoEl);
+  item.appendChild(timeEl);
+  item.appendChild(badgeEl);
   return item;
 }
 
