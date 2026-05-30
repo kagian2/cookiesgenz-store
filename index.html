@@ -1190,26 +1190,35 @@ function renderPayPal(price){
         return Promise.reject(new Error('Username required'));
       }
       document.getElementById('usernameError').style.display='none';
-      // Referral code: 10% discount
       var ref=document.getElementById('referralInput').value.trim().toUpperCase();
       var validCodes=['DONTLOOKATTHESOURCECODE','YEA DONT','WMEMBERS'];
-      var finalPrice=parseFloat(currentProduct.price);
       var refEl=document.getElementById('referralError');
       if(ref&&validCodes.indexOf(ref)>-1){
-        finalPrice=Math.round(finalPrice*0.9*100)/100;
-        refEl.textContent='✓ Code '+ref+' applied — paying €'+finalPrice.toFixed(2);
+        refEl.textContent='✓ Code '+ref+' applied — 10% off';
         refEl.style.color='#5bf577';refEl.style.display='block';
       } else if(ref){
         refEl.textContent='✗ Invalid referral code.';
         refEl.style.color='var(--fire-red)';refEl.style.display='block';
+        return Promise.reject(new Error('Invalid code'));
       } else{refEl.style.display='none';}
-      return actions.order.create({
-        application_context:{shipping_preference:'NO_SHIPPING'},
-        purchase_units:[{
-          amount:{value:finalPrice.toFixed(2),currency_code:'EUR'},
-          description:'CookiesGenZ - '+currentProduct.name+' for '+u+(ref&&validCodes.indexOf(ref)>-1?' [ref:'+ref+']':''),
-          payee:{email_address:'kgian76@gmail.com'}
-        }]
+      // Send product name + qty to server — server looks up the real price
+      return fetch('/api/create-order',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          productName:currentProduct.name,
+          qty:currentQty||1,
+          username:u,
+          referral:(ref&&validCodes.indexOf(ref)>-1)?ref:''
+        })
+      }).then(function(r){return r.json();}).then(function(data){
+        if(!data.orderId) throw new Error(data.error||'Order creation failed');
+        // Update displayed price to server-verified amount
+        var refEl2=document.getElementById('referralError');
+        if(ref&&validCodes.indexOf(ref)>-1){
+          refEl2.textContent='✓ Code applied — paying €'+data.verifiedPrice;
+        }
+        return data.orderId;
       });
     },
     onApprove:function(data,actions){
@@ -1229,7 +1238,7 @@ function renderPayPal(price){
 
 // DISCORD WEBHOOK
 function sendWebhook(u,product,price,icon,orderId){
-  var W='/api/webhook-advertising';
+  var W='/api/webhook-payment';
   var body={embeds:[{
     title:icon+' New Purchase — '+product,
     color:0xFF6B1A,
@@ -1467,7 +1476,7 @@ openModal=function(name,price,icon,type){
 
 // ── DISCORD STORE CHANNEL AUTO-MESSAGES ──
 (function(){
-  var STORE_WEBHOOK='/api/webhook-payment';
+  var STORE_WEBHOOK='/api/webhook-advertising';
 
   var messages=[
     // 0: deals reminder
@@ -1606,7 +1615,6 @@ openModal=function(name,price,icon,type){
         return actions.order.capture().then(function(){
           // send webhook
           var donatePayload=JSON.stringify({embeds:[{title:'❤️ Donation Received!',description:'**'+name+'** donated **€'+amt.toFixed(2)+'**\n\nThank you for supporting CookiesGenZ!',color:0x2ECC40}]});
-          fetch('/api/webhook-advertising',{method:'POST',headers:{'Content-Type':'application/json'},body:donatePayload}).catch(function(){});
           fetch('/api/webhook-payment',{method:'POST',headers:{'Content-Type':'application/json'},body:donatePayload}).catch(function(){});
           donateBtn.textContent = '❤️ Thank you, '+name+'!';
           donateBtn.style.background = 'linear-gradient(135deg,#1a8a26,#2ecc40)';
