@@ -26,7 +26,9 @@ async function getPayPalAccessToken() {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + Buffer.from(`${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_CLIENT_SECRET}`).toString('base64'),
+      'Authorization': 'Basic ' + Buffer.from(
+        `${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_CLIENT_SECRET}`
+      ).toString('base64'),
     },
     body: 'grant_type=client_credentials',
   });
@@ -55,28 +57,28 @@ export default async function handler(req, res) {
       return res.status(402).json({ error: 'Order not completed', status: order.status });
     }
 
-    // 2. Extract verified amount from PayPal response (never trust client)
+    // 2. Extract verified amount directly from PayPal response
     const amount = order.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.value || '?';
     const currency = order.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.currency_code || 'EUR';
+    const qtyNum = parseInt(qty) || 1;
 
     // 3. Build command
     const cmdFn = COMMANDS[productName];
-    const command = cmdFn ? '```\n' + cmdFn(username) + '\n```' : '`Grant ' + productName + ' to ' + username + '`';
+    const command = cmdFn
+      ? '```\n' + cmdFn(username) + '\n```'
+      : '`Grant ' + productName + ' to ' + username + '`';
 
-    const internalSecret = process.env.INTERNAL_SECRET;
-    const headers = {
-      'Content-Type': 'application/json',
-      'x-internal-secret': internalSecret,
-    };
+    // 4. Send to private payments webhook directly
+    const paymentsWebhook = process.env.DISCORD_WEBHOOK_PAYMENTS;
+    const advertisingWebhook = process.env.DISCORD_WEBHOOK_ADVERTISING;
 
-    // 4. Fire private webhook (full details)
-    const privatePayload = JSON.stringify({
+    const privatePayload = {
       embeds: [{
         title: `🛒 New Purchase — ${productName}`,
         color: 0xFF6B1A,
         fields: [
           { name: '👤 Minecraft Username', value: '`' + username + '`', inline: true },
-          { name: '📦 Package', value: productName + (qty > 1 ? ` x${qty}` : ''), inline: true },
+          { name: '📦 Package', value: productName + (qtyNum > 1 ? ` x${qtyNum}` : ''), inline: true },
           { name: '💰 Amount Paid', value: `€${amount} ${currency}`, inline: true },
           { name: '🧾 PayPal Order ID', value: '`' + orderId + '`', inline: false },
           { name: '⚡ Action Required', value: command, inline: false },
@@ -84,27 +86,34 @@ export default async function handler(req, res) {
         footer: { text: 'CookiesGenZ Store · Verified by PayPal' },
         timestamp: new Date().toISOString(),
       }],
-    });
+    };
 
-    // 5. Fire public webhook (clean announcement only)
-    const publicPayload = JSON.stringify({
+    const publicPayload = {
       embeds: [{
-        title: `🎉 New Purchase!`,
+        title: '🎉 New Purchase!',
         description: `**${username}** just bought **${productName}**!`,
         color: 0x2ECC40,
         footer: { text: 'CookiesGenZ Store' },
         timestamp: new Date().toISOString(),
       }],
-    });
+    };
 
-    await Promise.all([
-      fetch(`${req.headers.origin || 'https://' + req.headers.host}/api/webhook-payment`, {
-        method: 'POST', headers, body: privatePayload,
+    // 5. Fire both webhooks directly — no middleman
+    const [privateRes, publicRes] = await Promise.all([
+      fetch(paymentsWebhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(privatePayload),
       }),
-      fetch(`${req.headers.origin || 'https://' + req.headers.host}/api/webhook-advertising`, {
-        method: 'POST', headers, body: publicPayload,
+      fetch(advertisingWebhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(publicPayload),
       }),
     ]);
+
+    if (!privateRes.ok) console.error('Private webhook failed:', await privateRes.text());
+    if (!publicRes.ok) console.error('Public webhook failed:', await publicRes.text());
 
     return res.status(200).json({ success: true, amount, currency });
 
