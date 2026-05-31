@@ -1224,12 +1224,12 @@ function renderPayPal(price){
     onApprove:function(data,actions){
       return actions.order.capture().then(function(details){
         var u=document.getElementById('usernameInput').value.trim();
-        // Send order ID to server — server verifies with PayPal and fires webhook
+        var orderId=data.orderID||details.id;
         fetch('/api/verify-order',{
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({
-            orderId:details.id,
+            orderId:orderId,
             username:u,
             productName:currentProduct.name,
             qty:currentQty||1
@@ -1515,7 +1515,7 @@ openModal=function(name,price,icon,type){
 
 // ── DISCORD STORE CHANNEL AUTO-MESSAGES ──
 (function(){
-  var STORE_WEBHOOK='/api/webhook-advertising';
+  var STORE_WEBHOOK='/api/send-ad';
 
   var messages=[
     // 0: deals reminder
