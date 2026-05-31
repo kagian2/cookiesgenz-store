@@ -89,9 +89,7 @@ export default async function handler(req, res) {
 
   // Relay to advertising webhook using INTERNAL_SECRET — browser never sees this
   const secret  = process.env.INTERNAL_SECRET;
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000';
+  const baseUrl = process.env.SITE_URL || 'http://localhost:3000';
 
   try {
     const r = await fetch(`${baseUrl}/api/webhook-advertising`, {
