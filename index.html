@@ -1143,11 +1143,6 @@ document.getElementById('copyBtn').addEventListener('click',function(){
   });
 });
 
-// -- DEV TOGGLE --
-// true  = clicking Pay sends a fake webhook with no real payment (for testing)
-// false = real PayPal buttons, real payments (set this before going live)
-var SANDBOX_MODE = true;
-
 // MODAL STATE
 var currentProduct={name:'',price:'',icon:'',type:''};
 // Set at createOrder time; reused by onApprove to avoid DOM re-read race condition
@@ -1188,43 +1183,6 @@ function renderPayPal(price){
   var container=document.getElementById('paypal-button-container');
   container.innerHTML='';
 
-  // SANDBOX: render a plain button that skips PayPal and calls verify-order directly
-  if(SANDBOX_MODE){
-    var devBtn=document.createElement('button');
-    devBtn.textContent='[DEV] Simulate Purchase';
-    devBtn.style.cssText='width:100%;padding:13px;background:#00bfff;color:#000;font-weight:700;font-size:1rem;border:none;border-radius:6px;cursor:pointer;font-family:Rajdhani,sans-serif;letter-spacing:.05em;';
-    devBtn.onclick=function(){
-      var u=document.getElementById('usernameInput').value.trim();
-      var re=/^[a-zA-Z0-9_]{3,16}$/;
-      var errEl=document.getElementById('usernameError');
-      if(!u||!re.test(u)){
-        errEl.textContent=u?'Username must be 3-16 characters: letters, numbers and _ only.':'Please enter your Minecraft username.';
-        errEl.style.display='block';
-        document.getElementById('usernameInput').focus();
-        return;
-      }
-      errEl.style.display='none';
-      devBtn.textContent='Sending test webhook...';
-      devBtn.disabled=true;
-      fetch('/api/verify-order',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({orderId:'SANDBOXTEST00001',username:u})
-      }).then(function(r){return r.json();}).then(function(d){
-        if(!d.ok) throw new Error(d.error||'Sandbox verify failed');
-        showSuccess(u);
-      }).catch(function(e){
-        console.error('[SANDBOX] verify-order error:',e);
-        devBtn.textContent='[DEV] Simulate Purchase';
-        devBtn.disabled=false;
-        alert('[SANDBOX] Error: '+e.message);
-      });
-    };
-    container.appendChild(devBtn);
-    return;
-  }
-
-  // PRODUCTION: real PayPal buttons
   paypal.Buttons({
     style:{layout:'vertical',color:'gold',shape:'rect',label:'pay',height:45},
     createOrder:function(data,actions){
