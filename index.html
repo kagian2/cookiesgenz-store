@@ -1209,7 +1209,7 @@ function renderPayPal(price){
       fetch('/api/verify-order',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({orderId:'SANDBOXTESTORDER01',username:u})
+        body:JSON.stringify({orderId:'SANDBOXTEST00001',username:u})
       }).then(function(r){return r.json();}).then(function(d){
         if(!d.ok) throw new Error(d.error||'Sandbox verify failed');
         showSuccess(u);
