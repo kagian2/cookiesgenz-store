@@ -85,7 +85,10 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end('Method Not Allowed');
 
   const { orderId, username } = req.body;
-  const isSandbox = process.env.PAYPAL_SANDBOX === 'true';
+  // -- DEV TOGGLE --
+  // true  = skip PayPal verification, fire [SANDBOX TEST] Discord webhooks
+  // false = full production verification (set this before going live)
+  const isSandbox = true;
 
   // Validate inputs regardless of sandbox mode
   if (!orderId || typeof orderId !== 'string') {
