@@ -1145,8 +1145,6 @@ document.getElementById('copyBtn').addEventListener('click',function(){
 
 // MODAL STATE
 var currentProduct={name:'',price:'',icon:'',type:''};
-// Set at createOrder time; reused by onApprove to avoid DOM re-read race condition
-var confirmedUsername='';
 
 function openModal(name,price,icon,type){
   currentProduct={name:name,price:price,icon:icon,type:type};
@@ -1182,26 +1180,28 @@ document.querySelectorAll('[data-name][data-price]').forEach(function(btn){
 function renderPayPal(price){
   var container=document.getElementById('paypal-button-container');
   container.innerHTML='';
-
   paypal.Buttons({
     style:{layout:'vertical',color:'gold',shape:'rect',label:'pay',height:45},
     createOrder:function(data,actions){
       var u=document.getElementById('usernameInput').value.trim();
-      var usernameRe=/^[a-zA-Z0-9_]{3,16}$/;
-      var usernameErrEl=document.getElementById('usernameError');
-      if(!u||!usernameRe.test(u)){
-        usernameErrEl.textContent=u?'Username must be 3–16 characters: letters, numbers and _ only.':'Please enter your Minecraft username.';
-        usernameErrEl.style.display='block';
+      if(!u){
+        document.getElementById('usernameError').style.display='block';
         document.getElementById('usernameInput').focus();
-        return Promise.reject(new Error('Invalid username'));
+        return Promise.reject(new Error('Username required'));
       }
-      usernameErrEl.style.display='none';
-      // Capture username now — onApprove must NOT re-read from DOM (race condition fix)
-      confirmedUsername=u;
+      document.getElementById('usernameError').style.display='none';
       var ref=document.getElementById('referralInput').value.trim().toUpperCase();
+      var validCodes=['DONTLOOKATTHESOURCECODE','YEA DONT','WMEMBERS'];
       var refEl=document.getElementById('referralError');
-      refEl.style.display='none';
-      // Validation happens server-side — send the code as-is
+      if(ref&&validCodes.indexOf(ref)>-1){
+        refEl.textContent='✓ Code '+ref+' applied — 10% off';
+        refEl.style.color='#5bf577';refEl.style.display='block';
+      } else if(ref){
+        refEl.textContent='✗ Invalid referral code.';
+        refEl.style.color='var(--fire-red)';refEl.style.display='block';
+        return Promise.reject(new Error('Invalid code'));
+      } else{refEl.style.display='none';}
+      // Send product name + qty to server — server looks up the real price
       return fetch('/api/create-order',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
@@ -1209,37 +1209,33 @@ function renderPayPal(price){
           productName:currentProduct.name,
           qty:currentQty||1,
           username:u,
-          referral:ref
+          referral:(ref&&validCodes.indexOf(ref)>-1)?ref:''
         })
       }).then(function(r){return r.json();}).then(function(data){
-        if(data.error==='invalid_referral'){
-          refEl.textContent='✗ Invalid referral code.';
-          refEl.style.color='var(--fire-red)';refEl.style.display='block';
-          throw new Error('Invalid referral code');
-        }
         if(!data.orderId) throw new Error(data.error||'Order creation failed');
-        // Server confirmed the code — show feedback with verified price
-        if(data.discountApplied){
-          refEl.textContent='✓ Code applied — paying €'+data.verifiedPrice;
-          refEl.style.color='#5bf577';refEl.style.display='block';
+        // Update displayed price to server-verified amount
+        var refEl2=document.getElementById('referralError');
+        if(ref&&validCodes.indexOf(ref)>-1){
+          refEl2.textContent='✓ Code applied — paying €'+data.verifiedPrice;
         }
         return data.orderId;
       });
     },
     onApprove:function(data,actions){
-      // Use username captured at createOrder time — never re-read from DOM
-      var u=confirmedUsername;
-      // Server captures with PayPal, verifies status, fires both Discord webhooks
-      return fetch('/api/verify-order',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({orderId:data.orderID,username:u})
-      }).then(function(r){return r.json();}).then(function(d){
-        if(!d.ok) throw new Error(d.error||'Verification failed');
+      return actions.order.capture().then(function(details){
+        var u=document.getElementById('usernameInput').value.trim();
+        // Send order ID to server — server verifies with PayPal and fires webhook
+        fetch('/api/verify-order',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            orderId:details.id,
+            username:u,
+            productName:currentProduct.name,
+            qty:currentQty||1
+          })
+        }).catch(function(e){console.error('Verify error:',e);});
         showSuccess(u);
-      }).catch(function(e){
-        console.error('verify-order error:',e);
-        alert('Payment received but confirmation failed. Please contact us on Discord with your PayPal receipt.');
       });
     },
     onError:function(err){
@@ -1250,8 +1246,46 @@ function renderPayPal(price){
   }).render('#paypal-button-container');
 }
 
-// Webhook relay and command generation moved to /api/verify-order (server-side)
+// DISCORD WEBHOOK
+function sendWebhook(u,product,price,icon,orderId){
+  var W='/api/webhook-payment';
+  var body={embeds:[{
+    title:icon+' New Purchase — '+product,
+    color:0xFF6B1A,
+    fields:[
+      {name:'👤 Minecraft Username',value:'`'+u+'`',inline:true},
+      {name:'📦 Package',value:product,inline:true},
+      {name:'💰 Amount Paid',value:'€'+price+' EUR',inline:true},
+      {name:'🧾 PayPal Order ID',value:'`'+orderId+'`',inline:false},
+      {name:'⚡ Action Required',value:getCommand(u,product),inline:false}
+    ],
+    footer:{text:'CookiesGenZ Store · Verified by PayPal'},
+    timestamp:new Date().toISOString()
+  }]};
+  fetch(W,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+    .catch(function(e){console.error('Webhook error:',e);});
+}
 
+function getCommand(u,p){
+  var m={
+    'VIP Rank':             '/lp user '+u+' parent set vip',
+    'Elite Rank':           '/lp user '+u+' parent set elite',
+    'Legend Rank':          '/lp user '+u+' parent set legend',
+    'Custom Rank':          '/lp user '+u+' parent set custom  ← set up prefix via Discord ticket',
+    'Cookie Key':           '/give '+u+' cookie_key 1',
+    'Dragon Key':           '/give '+u+' dragon_key 1',
+    'Totem Pack':           '/give '+u+' totem_of_undying 5',
+    'Lore Token x5':        '→ Add lore to 5 items for '+u+' via ItemEdit plugin',
+    'God Apple Stack':      '/give '+u+' enchanted_golden_apple 64',
+    'Dragon Pickaxe':       '/give '+u+' netherite_pickaxe{Enchantments:[{id:efficiency,lvl:5},{id:fortune,lvl:3},{id:unbreaking,lvl:3},{id:mending,lvl:1}]} 1',
+    'Extra Vault Token':    '/axvaults addvault '+u+' 1',
+    'Super Compressor':     '/give '+u+' nether_star{display:{Name:\'{"text":"Super Compressor"}\'},SkullOwner:"SuperCompressor"} 1',
+    'Starter Bundle':       '/lp user '+u+' parent set vip\n/give '+u+' cookie_key 1',
+    'Dragon Slayer Bundle': '/lp user '+u+' parent set elite\n/give '+u+' dragon_key 1',
+    'Ultimate Bundle':      '/lp user '+u+' parent set custom\n/give '+u+' dragon_key 1\n/give '+u+' cookie_key 2\n/give '+u+' enchanted_golden_apple 64'
+  };
+  return m[p]?'```\n'+m[p]+'\n```':'`Grant '+p+' to '+u+'`';
+}
 
 function showSuccess(u){
   document.getElementById('modalBody').style.display='none';
@@ -1481,7 +1515,7 @@ openModal=function(name,price,icon,type){
 
 // ── DISCORD STORE CHANNEL AUTO-MESSAGES ──
 (function(){
-  // Store messages sent via /api/store-message — no webhook URL needed in browser
+  var STORE_WEBHOOK='/api/webhook-advertising';
 
   var messages=[
     // 0: deals reminder
@@ -1561,13 +1595,13 @@ openModal=function(name,price,icon,type){
   var msgIdx=0;
 
   function sendStoreMsg(){
-    // Send only the message index — server selects payload and holds INTERNAL_SECRET
-    fetch('/api/store-message',{
+    var payload=messages[msgIdx%messages.length];
+    msgIdx++;
+    fetch(STORE_WEBHOOK,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({idx:msgIdx})
-    }).catch(function(e){console.warn('Store message error:',e);});
-    msgIdx++;
+      body:JSON.stringify(payload)
+    }).catch(function(e){console.warn('Store webhook error:',e);});
   }
 
   // Send first message after 10s (so page has fully loaded), then every ~65 mins
@@ -1608,30 +1642,20 @@ openModal=function(name,price,icon,type){
     paypal.Buttons({
       style:{layout:'vertical',color:'blue',shape:'rect',label:'donate',height:45},
       createOrder: function(data,actions){
-        // Amount validated and order created server-side — client never sets the price
-        return fetch('/api/create-order',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({productName:'Donation',username:name,donationAmount:amt,qty:1,referral:''})
-        }).then(function(r){return r.json();}).then(function(d){
-          if(!d.orderId) throw new Error(d.error||'Donation order failed');
-          return d.orderId;
+        return actions.order.create({
+          application_context:{shipping_preference:'NO_SHIPPING'},
+          purchase_units:[{
+            amount:{value:amt.toFixed(2),currency_code:'EUR'},
+            description:'Donation from ' + name + ' to CookiesGenZ'
+          }]
         });
       },
       onApprove: function(data,actions){
-        // Server captures with PayPal, verifies, fires both Discord webhooks
-        return fetch('/api/verify-order',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({orderId:data.orderID,username:name})
-        }).then(function(r){return r.json();}).then(function(d){
-          if(!d.ok) throw new Error(d.error||'Verification failed');
+        return actions.order.capture().then(function(){
+          // send webhook
+          var donatePayload=JSON.stringify({embeds:[{title:'❤️ Donation Received!',description:'**'+name+'** donated **€'+amt.toFixed(2)+'**\n\nThank you for supporting CookiesGenZ!',color:0x2ECC40}]});
+          fetch('/api/webhook-payment',{method:'POST',headers:{'Content-Type':'application/json'},body:donatePayload}).catch(function(){});
           donateBtn.textContent = '❤️ Thank you, '+name+'!';
-          donateBtn.style.background = 'linear-gradient(135deg,#1a8a26,#2ecc40)';
-        }).catch(function(e){
-          console.error('verify-order (donation) error:',e);
-          // Payment went through — show thanks even if notification failed
-          donateBtn.textContent = '❤️ Thank you!';
           donateBtn.style.background = 'linear-gradient(135deg,#1a8a26,#2ecc40)';
         });
       }
