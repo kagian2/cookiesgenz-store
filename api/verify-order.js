@@ -88,7 +88,7 @@ export default async function handler(req, res) {
   // -- DEV TOGGLE --
   // true  = skip PayPal verification, fire [SANDBOX TEST] Discord webhooks
   // false = full production verification (set this before going live)
-  const isSandbox = true;
+  const isSandbox = false;
 
   // Validate inputs regardless of sandbox mode
   if (!orderId || typeof orderId !== 'string') {
