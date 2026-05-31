@@ -1,14 +1,19 @@
 // api/verify-order.js
 // Step 8-12 of the payment flow:
 //   - Receives the PayPal Order ID from the browser after onApprove fires
-//   - Verifies the order status is COMPLETED directly via PayPal's API (server-to-server)
+//   - In SANDBOX mode: skips PayPal verification entirely, fires webhooks with fake data
+//   - In PRODUCTION mode: verifies order is COMPLETED via PayPal API server-to-server
 //   - Fires the private payments webhook (Discord #purchases channel) via webhook-payment.js
 //   - Fires the public advertising webhook (Discord #store-purchases channel) via webhook-advertising.js
 //   - Returns success to the browser
 //
 // Environment variables required:
 //   PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PAYPAL_SANDBOX,
-//   DISCORD_WEBHOOK_PAYMENTS, DISCORD_WEBHOOK_ADVERTISING, INTERNAL_SECRET
+//   DISCORD_WEBHOOK_PAYMENTS, DISCORD_WEBHOOK_ADVERTISING,
+//   INTERNAL_SECRET, SITE_URL
+//
+// Dev toggle: set PAYPAL_SANDBOX=true in Vercel env vars to skip PayPal verification
+// and fire test webhooks with fake order data. Never use in production.
 
 const USERNAME_RE = /^[a-zA-Z0-9_]{3,16}$/;
 
@@ -56,18 +61,16 @@ async function getPayPalAccessToken() {
   return { token: data.access_token, base };
 }
 
-// Sends a payload to one of the internal webhook relay routes.
-// Uses INTERNAL_SECRET so the relay endpoint rejects direct outside calls.
+// Calls an internal API route with the INTERNAL_SECRET header.
+// route must be one of: /api/webhook-payment, /api/webhook-advertising
 async function fireWebhook(route, payload) {
-  const secret = process.env.INTERNAL_SECRET;
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000';
+  const secret  = process.env.INTERNAL_SECRET;
+  const baseUrl = process.env.SITE_URL || 'http://localhost:3000';
 
   const r = await fetch(`${baseUrl}${route}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type':      'application/json',
       'X-Internal-Secret': secret,
     },
     body: JSON.stringify(payload),
@@ -82,13 +85,59 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end('Method Not Allowed');
 
   const { orderId, username } = req.body;
+  const isSandbox = process.env.PAYPAL_SANDBOX === 'true';
 
-  // Basic format validation before hitting PayPal
-  if (!orderId || typeof orderId !== 'string' || !/^[A-Z0-9]{17}$/.test(orderId)) {
-    return res.status(400).json({ error: 'Invalid order ID format.' });
+  // Validate inputs regardless of sandbox mode
+  if (!orderId || typeof orderId !== 'string') {
+    return res.status(400).json({ error: 'Invalid order ID.' });
   }
   if (!username || !USERNAME_RE.test(username)) {
     return res.status(400).json({ error: 'Invalid username.' });
+  }
+
+  // ── SANDBOX / DEV MODE ──────────────────────────────────────────────────────
+  // Skips PayPal verification entirely. Fires Discord webhooks with clearly
+  // labelled [SANDBOX TEST] data so you know it's a test. Safe to use on
+  // Vercel preview deployments. Never set PAYPAL_SANDBOX=true on production.
+  if (isSandbox) {
+    console.log(`[SANDBOX] verify-order called — orderId: ${orderId}, username: ${username}`);
+
+    const fakeProduct = 'VIP Rank';
+    const fakeAmt     = '0.00';
+
+    await fireWebhook('/api/webhook-payment', {
+      embeds: [{
+        title:  `🧪 [SANDBOX TEST] New Purchase — ${fakeProduct}`,
+        color:  0x00BFFF,
+        fields: [
+          { name: '👤 Minecraft Username', value: `\`${username}\``,                         inline: true  },
+          { name: '📦 Package',            value: fakeProduct,                                inline: true  },
+          { name: '💰 Amount Verified',    value: `€${fakeAmt} EUR (SANDBOX — not real)`,    inline: true  },
+          { name: '🧾 PayPal Order ID',    value: `\`${orderId}\``,                          inline: false },
+          { name: '⚡ Action Required',    value: getCommand(username, fakeProduct),          inline: false },
+        ],
+        footer:    { text: 'CookiesGenZ Store · SANDBOX TEST — no real payment' },
+        timestamp: new Date().toISOString(),
+      }],
+    }).catch(e => console.error('[SANDBOX] webhook-payment error:', e.message));
+
+    await fireWebhook('/api/webhook-advertising', {
+      embeds: [{
+        title:       `🧪 [SANDBOX] New Purchase!`,
+        description: `A player just grabbed **${fakeProduct}** from the store!\n\n[🛒 Shop Now](${process.env.SITE_URL || ''})`,
+        color:       0x00BFFF,
+        footer:      { text: 'CookiesGenZ Store · SANDBOX TEST' },
+        timestamp:   new Date().toISOString(),
+      }],
+    }).catch(e => console.error('[SANDBOX] webhook-advertising error:', e.message));
+
+    return res.status(200).json({ ok: true, sandbox: true });
+  }
+
+  // ── PRODUCTION MODE ─────────────────────────────────────────────────────────
+  // Strict PayPal order ID format: 17 uppercase alphanumeric chars
+  if (!/^[A-Z0-9]{17}$/.test(orderId)) {
+    return res.status(400).json({ error: 'Invalid order ID format.' });
   }
 
   try {
@@ -105,7 +154,7 @@ export default async function handler(req, res) {
       return res.status(402).json({ error: 'Payment not confirmed by PayPal.' });
     }
 
-    // Extract verified values from the PayPal record — never use client-supplied price
+    // Extract verified values from PayPal — never use client-supplied price
     const unit        = order.purchase_units?.[0];
     const capture     = unit?.payments?.captures?.[0];
     const verifiedAmt = capture?.amount?.value || unit?.amount?.value || '?';
@@ -123,25 +172,24 @@ export default async function handler(req, res) {
       if (m) productName = m[1];
     }
 
-    // ── Step 10: Private channel — full purchase details for staff ──
+    // ── Step 10: Private channel — full details for staff ──
     if (!isDonation) {
       await fireWebhook('/api/webhook-payment', {
         embeds: [{
           title: `🛒 New Purchase — ${productName}`,
           color: 0xFF6B1A,
           fields: [
-            { name: '👤 Minecraft Username', value: `\`${username}\``,                                    inline: true  },
-            { name: '📦 Package',            value: productName,                                           inline: true  },
-            { name: '💰 Amount Verified',    value: `€${verifiedAmt} EUR (PayPal confirmed)`,             inline: true  },
-            { name: '🧾 PayPal Order ID',    value: `\`${orderId}\``,                                     inline: false },
-            { name: '⚡ Action Required',    value: getCommand(username, productName),                    inline: false },
+            { name: '👤 Minecraft Username', value: `\`${username}\``,                                 inline: true  },
+            { name: '📦 Package',            value: productName,                                        inline: true  },
+            { name: '💰 Amount Verified',    value: `€${verifiedAmt} EUR (PayPal confirmed)`,          inline: true  },
+            { name: '🧾 PayPal Order ID',    value: `\`${orderId}\``,                                  inline: false },
+            { name: '⚡ Action Required',    value: getCommand(username, productName),                 inline: false },
           ],
           footer:    { text: 'CookiesGenZ Store · Verified by PayPal API' },
           timestamp: new Date().toISOString(),
         }],
       });
     } else {
-      // Donations go to private channel too, with a different format
       await fireWebhook('/api/webhook-payment', {
         embeds: [{
           title:       '❤️ Donation Received!',
@@ -153,7 +201,7 @@ export default async function handler(req, res) {
       });
     }
 
-    // ── Step 11: Public channel — clean announcement for the community ──
+    // ── Step 11: Public channel — clean community announcement ──
     const publicEmbed = isDonation
       ? {
           embeds: [{
@@ -166,8 +214,8 @@ export default async function handler(req, res) {
         }
       : {
           embeds: [{
-            title:       `🎉 New Purchase!`,
-            description: `A player just grabbed **${productName}** from the store!\n\n[🛒 Shop Now](https://cookiesgenz.vercel.app)`,
+            title:       '🎉 New Purchase!',
+            description: `A player just grabbed **${productName}** from the store!\n\n[🛒 Shop Now](${process.env.SITE_URL || ''})`,
             color:       0xFF6B1A,
             footer:      { text: 'cookiesgenz.minehut.gg' },
             timestamp:   new Date().toISOString(),
